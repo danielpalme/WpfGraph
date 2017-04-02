@@ -11,7 +11,8 @@ Twitter: [@danielpalme](http://twitter.com/danielpalme)
 
 ## Sample Animation
 
-Watch a video of a sample animation:
+Watch a video of a sample animation: 
+
 [![Sample animation](http://img.youtube.com/vi/wQJBQB-Ajdc/0.jpg)](http://www.youtube.com/watch?v=wQJBQB-Ajdc "Sample animation")
 
 ## Usage
@@ -22,7 +23,7 @@ Watch a video of a sample animation:
 * All graph algorithms can be executed by selecting the corresponding entry in the menu
 
 ## Implement custom graph algorithms
-The application already contains several graph algorithms like Dijkstra or Kruskal. To create your own algorithms, add a new class to the solution and implement the interface IGraphAlgorithm. After recompiling the solution, your algorithm will be listed in the menu.
+The application already contains several graph algorithms like [Dijkstra](https://github.com/danielpalme/WpfGraph/blob/master/WpfGraph.Ui/Algorithms/Dijkstra.cs) or [Kruskal](https://github.com/danielpalme/WpfGraph/blob/master/WpfGraph.Ui/Algorithms/SpanningTree/Kruskal.cs). To create your own algorithms, add a new class to the solution and implement the interface [IGraphAlgorithm](https://github.com/danielpalme/WpfGraph/blob/master/WpfGraph.Ui/Algorithms/IGraphAlgorithm.cs). After recompiling the solution, your algorithm will be listed in the menu.
 
 Creating animations is quite simple, some extension methods make things even easier. In the following example, we add two nodes to the graph, then we flash the two nodes for 3 seconds. After the flashing is finished, both nodes are moved to another position.
 
