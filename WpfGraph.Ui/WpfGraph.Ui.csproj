@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B8184333-BE63-4B86-A75E-C734B42E220B}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Palmmedia.WpfGraph.UI</RootNamespace>
+    <AssemblyName>WpfGraph</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>ProgrammIcon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Properties\GraphAlgorithmErrors.Designer.cs">
+      <DependentUpon>GraphAlgorithmErrors.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\Color2BrushConverter.cs" />
+    <Compile Include="Resources\EdgeDirection2IntConverter.cs" />
+    <Compile Include="Resources\GraphElementTemplateSelector.cs" />
+    <Compile Include="ViewModels\AnimationEventArgs.cs" />
+    <Compile Include="ViewModels\EdgeData.cs" />
+    <Compile Include="ViewModels\Extensions\EdgeExtensions.cs" />
+    <Compile Include="ViewModels\Extensions\GraphExtensions.cs" />
+    <Compile Include="ViewModels\Extensions\NodeExtensions.cs" />
+    <Compile Include="ViewModels\GraphDataBase.cs" />
+    <Compile Include="ViewModels\GraphViewModel.cs" />
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\Menu\AlgorithmsMenuBuilder.cs" />
+    <Compile Include="ViewModels\Menu\CategoryMenuItemViewModel.cs" />
+    <Compile Include="ViewModels\Menu\IAlgorithmMenuItemViewModel.cs" />
+    <Compile Include="ViewModels\Menu\MenuItemViewModel.cs" />
+    <Compile Include="ViewModels\NodeData.cs" />
+    <Compile Include="ViewModels\NodeMovedEventArgs.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="Views\EdgeDataView.xaml.cs">
+      <DependentUpon>EdgeDataView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GraphImage.xaml.cs">
+      <DependentUpon>GraphImage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NodeDataView.xaml.cs">
+      <DependentUpon>NodeDataView.xaml</DependentUpon>
+    </Compile>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="Algorithms\Dijkstra.cs" />
+    <Compile Include="Algorithms\IGraphAlgorithm.cs" />
+    <Compile Include="Algorithms\SampleAnimation.cs" />
+    <Compile Include="Algorithms\SpanningTree\Kruskal.cs" />
+    <Compile Include="Algorithms\SpanningTree\Prim.cs" />
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Common\LinqExtensions.cs" />
+    <Compile Include="Common\PropertyObserver.cs" />
+    <Compile Include="Common\RelayCommand.cs" />
+    <Compile Include="Elements3D\EdgeUiElement.cs" />
+    <Compile Include="Elements3D\GraphUIElement.cs" />
+    <Compile Include="Elements3D\NodeUIElement.cs" />
+    <Compile Include="Elements3D\RegularEdgeUIElement.cs" />
+    <Compile Include="Elements3D\SelfEdgeUIElement.cs" />
+    <Compile Include="Elements3D\Tesselate\CylinderTesselate.cs" />
+    <Compile Include="Elements3D\Tesselate\MathHelper.cs" />
+    <Compile Include="Elements3D\Tesselate\SphereTesselate.cs" />
+    <Compile Include="Elements3D\Tesselate\TorusTesselate.cs" />
+    <Compile Include="Elements3D\VisualFactory.cs" />
+    <Compile Include="Interaction\FormFileSelector.cs" />
+    <Compile Include="Interaction\FormMessageHandler.cs" />
+    <Compile Include="Interaction\IFileSelector.cs" />
+    <Compile Include="Interaction\IGraphProvider.cs" />
+    <Compile Include="Interaction\IMessageHandler.cs" />
+    <Compile Include="IO\GraphSerializationException.cs" />
+    <Compile Include="IO\GraphSerializer.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Views\EdgeDataView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\GraphImage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\NodeDataView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\GraphAlgorithmErrors.de.resx" />
+    <EmbeddedResource Include="Properties\GraphAlgorithmErrors.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>GraphAlgorithmErrors.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.de.resx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="log4net">
+      <Version>2.0.8</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ProgrammIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WpfGraph.Core\WpfGraph.Core.csproj">
+      <Project>{ed532b28-88d0-48ee-8111-7e01a9cea45d}</Project>
+      <Name>WpfGraph.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

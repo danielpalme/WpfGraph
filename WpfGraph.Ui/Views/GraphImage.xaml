@@ -1,0 +1,90 @@
+﻿<UserControl
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	mc:Ignorable="d"
+	x:Class="Palmmedia.WpfGraph.UI.Views.GraphImage"
+	Width="246" Height="218">
+
+			<Viewbox Stretch="Fill">
+				<Grid Width="242" Height="214">
+					<Ellipse Height="74" Margin="104,0,64,0" VerticalAlignment="Top">
+						<Ellipse.Fill>
+							<RadialGradientBrush>
+								<GradientStop Color="#FF03370E" Offset="1"/>
+								<GradientStop Color="#FF35B907"/>
+							</RadialGradientBrush>
+						</Ellipse.Fill>
+					</Ellipse>
+					<Rectangle Width="9.284" RenderTransformOrigin="0.5,0.5" RadiusX="5" RadiusY="5" HorizontalAlignment="Right" Margin="0,58.559,75.39,104.894">
+						<Rectangle.RenderTransform>
+							<TransformGroup>
+								<ScaleTransform/>
+								<SkewTransform/>
+								<RotateTransform Angle="-24.096"/>
+								<TranslateTransform/>
+							</TransformGroup>
+						</Rectangle.RenderTransform>
+						<Rectangle.Fill>
+							<LinearGradientBrush MappingMode="RelativeToBoundingBox" EndPoint="1,0.5" StartPoint="0,0.5">
+								<GradientStop Color="#FF1C1C1C" Offset="1"/>
+								<GradientStop Color="#FFC9C9C9" Offset="0.513"/>
+								<GradientStop Color="#FF1C1C1C" Offset="0.039"/>
+							</LinearGradientBrush>
+						</Rectangle.Fill>
+					</Rectangle>
+					<Rectangle Width="9.284" Height="50.547" RenderTransformOrigin="0.5,0.5" RadiusX="5" RadiusY="5" HorizontalAlignment="Left" Margin="86.326,41.559,0,0" VerticalAlignment="Top">
+						<Rectangle.RenderTransform>
+							<TransformGroup>
+								<ScaleTransform/>
+								<SkewTransform/>
+								<RotateTransform Angle="55.37"/>
+								<TranslateTransform/>
+							</TransformGroup>
+						</Rectangle.RenderTransform>
+						<Rectangle.Fill>
+							<LinearGradientBrush MappingMode="RelativeToBoundingBox" EndPoint="1,0.5" StartPoint="0,0.5">
+								<GradientStop Color="#FF1C1C1C" Offset="1"/>
+								<GradientStop Color="#FFC9C9C9" Offset="0.513"/>
+								<GradientStop Color="#FF1C1C1C" Offset="0.039"/>
+							</LinearGradientBrush>
+						</Rectangle.Fill>
+					</Rectangle>
+					<Ellipse VerticalAlignment="Top" Width="100" Height="100" HorizontalAlignment="Left" Margin="0,58,0,0">
+						<Ellipse.Fill>
+							<RadialGradientBrush>
+								<GradientStop Color="#FF370303" Offset="1"/>
+								<GradientStop Color="#FFC50000"/>
+							</RadialGradientBrush>
+						</Ellipse.Fill>
+					</Ellipse>
+					<Rectangle RenderTransformOrigin="-5.041,1.081" RadiusX="5" RadiusY="5" VerticalAlignment="Top" Width="15.087" Height="41.498" HorizontalAlignment="Right" Margin="0,152.264,68.24,0">
+						<Rectangle.RenderTransform>
+							<TransformGroup>
+								<ScaleTransform/>
+								<SkewTransform/>
+								<RotateTransform Angle="-64.621"/>
+								<TranslateTransform X="16.474" Y="18.448"/>
+							</TransformGroup>
+						</Rectangle.RenderTransform>
+						<Rectangle.Fill>
+							<LinearGradientBrush MappingMode="RelativeToBoundingBox" EndPoint="1,0.5" StartPoint="0,0.5">
+								<GradientStop Color="#FF1C1C1C" Offset="1"/>
+								<GradientStop Color="#FFC9C9C9" Offset="0.513"/>
+								<GradientStop Color="#FF1C1C1C" Offset="0.039"/>
+							</LinearGradientBrush>
+						</Rectangle.Fill>
+					</Rectangle>
+					<Ellipse VerticalAlignment="Top" Width="116" Height="116" HorizontalAlignment="Right" Margin="0,98,0,0">
+						<Ellipse.Fill>
+							<RadialGradientBrush>
+								<GradientStop Color="#FF030537" Offset="1"/>
+								<GradientStop Color="#FF001BC5"/>
+							</RadialGradientBrush>
+						</Ellipse.Fill>
+					</Ellipse>
+		
+				</Grid>
+			</Viewbox>
+</UserControl>

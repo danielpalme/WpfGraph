@@ -1,0 +1,8 @@
+/.vs
+/packages
+/TestResults
+*.suo
+*.user
+*.Cache
+bin
+obj

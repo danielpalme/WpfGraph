@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfGraph.Core", "WpfGraph.Core\WpfGraph.Core.csproj", "{ED532B28-88D0-48EE-8111-7E01A9CEA45D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfGraph.Core.Test", "WpfGraph.Core.Test\WpfGraph.Core.Test.csproj", "{FAF4475C-0F74-4DA4-AF65-2EA44C6FFAA0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfGraph.Ui", "WpfGraph.Ui\WpfGraph.Ui.csproj", "{B8184333-BE63-4B86-A75E-C734B42E220B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ED532B28-88D0-48EE-8111-7E01A9CEA45D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED532B28-88D0-48EE-8111-7E01A9CEA45D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED532B28-88D0-48EE-8111-7E01A9CEA45D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED532B28-88D0-48EE-8111-7E01A9CEA45D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FAF4475C-0F74-4DA4-AF65-2EA44C6FFAA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAF4475C-0F74-4DA4-AF65-2EA44C6FFAA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAF4475C-0F74-4DA4-AF65-2EA44C6FFAA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAF4475C-0F74-4DA4-AF65-2EA44C6FFAA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8184333-BE63-4B86-A75E-C734B42E220B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8184333-BE63-4B86-A75E-C734B42E220B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8184333-BE63-4B86-A75E-C734B42E220B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8184333-BE63-4B86-A75E-C734B42E220B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

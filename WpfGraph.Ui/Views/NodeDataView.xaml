@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="Palmmedia.WpfGraph.UI.Views.NodeDataView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:resx="clr-namespace:Palmmedia.WpfGraph.UI.Properties"
+             mc:Ignorable="d"
+             d:DesignHeight="400" d:DesignWidth="160">
+
+    <GroupBox Header="{x:Static resx:Resources.Properties}" Background="#FFF5F5F5">
+        <StackPanel Margin="10">
+            <Label Content="{x:Static resx:Resources.Color}"/>
+            <ComboBox Margin="0" TabIndex="1" 
+                      ItemsSource="{Binding Source={StaticResource AvailableColors}}"
+                      SelectedValue="{Binding Path=Data.Color}" ItemTemplate="{Binding Source={StaticResource ColorsTemplate}}">
+            </ComboBox>
+            <Label Content="{x:Static resx:Resources.X}"/>
+            <TextBox Text="{Binding Path=Data.XPosition, UpdateSourceTrigger=PropertyChanged}" Margin="0" VerticalAlignment="Top" TabIndex="1"/>
+            <Label Content="{x:Static resx:Resources.Y}"/>
+            <TextBox Text="{Binding Path=Data.YPosition, UpdateSourceTrigger=PropertyChanged}" Margin="0" VerticalAlignment="Top" TabIndex="2"/>
+            <Label Content="{x:Static resx:Resources.Z}"/>
+            <TextBox Text="{Binding Path=Data.ZPosition, UpdateSourceTrigger=PropertyChanged}" Margin="0" VerticalAlignment="Top" TabIndex="3"/>
+            <Label Content="{x:Static resx:Resources.Text}"/>
+            <TextBox Text="{Binding Path=Data.Text, UpdateSourceTrigger=PropertyChanged}" Margin="0" VerticalAlignment="Top" TabIndex="4"/>
+            <CheckBox IsChecked="{Binding Path=Data.Marked}" TabIndex="5" Content="{x:Static resx:Resources.Marked}" Margin="0,8,0,0"></CheckBox>
+        </StackPanel>
+    </GroupBox>
+
+</UserControl>

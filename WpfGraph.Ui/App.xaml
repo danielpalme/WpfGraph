@@ -1,0 +1,28 @@
+﻿<Application x:Class="Palmmedia.WpfGraph.UI.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:coll="clr-namespace:System.Collections;assembly=mscorlib"
+             xmlns:res="clr-namespace:Palmmedia.WpfGraph.UI.Resources">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <res:Color2BrushConverter x:Key="Color2BrushConverter"/>
+                    <coll:ArrayList x:Key="AvailableColors">
+                        <Color>LightCoral</Color>
+                        <Color>MediumSeaGreen</Color>
+                        <Color>SlateGray</Color>
+                        <Color>SteelBlue</Color>
+                        <Color>Khaki</Color>
+                        <Color>LightYellow</Color>
+                        <Color>Gray</Color>
+                        <Color>LightGray</Color>
+                    </coll:ArrayList>
+                    <DataTemplate x:Key="ColorsTemplate">
+                        <Rectangle Fill="{Binding Converter={StaticResource Color2BrushConverter}}" Stroke="Black" Margin="0" Width="98" Height="18"/>
+                    </DataTemplate>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
