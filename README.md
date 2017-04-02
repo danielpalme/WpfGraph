@@ -1,6 +1,6 @@
 # WpfGraph
-WPFGraph is a tool to create animations of graph algorithms using a WPF based 3D rendering engine.
-You can create a graph by adding nodes and edges to the UI simply by using your mouse.
+WPFGraph is a tool to create animations of graph algorithms using a WPF based 3D rendering engine.  
+You can create a graph by adding nodes and edges to the UI simply by using your mouse.  
 Then you can execute a graph algorithm like Dijkstra on the created graph.
 
 Additional information about the implementation can be found under [Resources](#resources).
