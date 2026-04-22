@@ -4,7 +4,7 @@
 =                               WPFGraph                              =
 =                    Animation of graph algorithms                    =
 =                                                                     =
-=                       http://www.palmmedia.de                       =
+=                       https://www.palmmedia.de                      =
 =                                                                     =
 =                                                                     =
 =======================================================================

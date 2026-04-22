@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="WpfGraph.Core.Test/WpfGraph.Core.Test.csproj" />
+  <Project Path="WpfGraph.Core/WpfGraph.Core.csproj" />
+  <Project Path="WpfGraph.Ui/WpfGraph.Ui.csproj" />
+</Solution>

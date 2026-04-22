@@ -6,8 +6,8 @@ Then you can execute a graph algorithm like Dijkstra on the created graph.
 Additional information about the implementation can be found under [Resources](#resources).
 
 Author: Daniel Palme  
-Blog: [www.palmmedia.de](http://www.palmmedia.de)  
-Twitter: [@danielpalme](http://twitter.com/danielpalme)  
+Blog: [www.palmmedia.de](https://www.palmmedia.de)  
+Twitter: [@danielpalme](https://twitter.com/danielpalme)  
 
 ## Sample Animation
 
@@ -50,6 +50,5 @@ private void Callback()
 
 ## Resources
 
-* http://www.codeproject.com/KB/WPF/WPFGraphAnimation.aspx
-* http://www.palmmedia.de/Blog/2009/12/29/wpf-animation-of-graph-algorithms-part-1
-* http://www.palmmedia.de/Blog/2009/12/29/wpf-animation-of-graph-algorithms-part-2
+* https//www.palmmedia.de/Blog/2009/12/29/wpf-animation-of-graph-algorithms-part-1
+* https://www.palmmedia.de/Blog/2009/12/29/wpf-animation-of-graph-algorithms-part-2
