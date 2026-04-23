@@ -1,14 +1,13 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Media3D;
 using Palmmedia.WpfGraph.Common;
-using Palmmedia.WpfGraph.UI.Interaction;
-using Palmmedia.WpfGraph.UI.ViewModels;
+using Palmmedia.WpfGraph.Ui.Interaction;
+using Palmmedia.WpfGraph.Ui.ViewModels;
 
-namespace Palmmedia.WpfGraph.UI.Elements3D
+namespace Palmmedia.WpfGraph.Ui.Elements3D
 {
     /// <summary>
     /// Base class for visual graph elements.
@@ -29,12 +28,6 @@ namespace Palmmedia.WpfGraph.UI.Elements3D
         /// The blink color.
         /// </summary>
         private static readonly Color BLINKCOLOR = Colors.Orange;
-        
-        /// <summary>
-        /// Observer to receive PropertyChanged events.
-        /// This field is required to prevent garbage collection of the observer.
-        /// </summary>
-        private readonly PropertyObserver<GraphDataBase> observer;
 
         /// <summary>
         /// The model.
@@ -55,6 +48,12 @@ namespace Palmmedia.WpfGraph.UI.Elements3D
             new PropertyMetadata(ColorPropertyChanged));
 
         /// <summary>
+        /// Observer to receive PropertyChanged events.
+        /// This field is required to prevent garbage collection of the observer.
+        /// </summary>
+        private readonly PropertyObserver<GraphDataBase> observer;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="GraphUIElement"/> class.
         /// </summary>
         /// <param name="graphProvider">The <see cref="IGraphProvider"/>.</param>
@@ -63,10 +62,12 @@ namespace Palmmedia.WpfGraph.UI.Elements3D
         {
             this.GraphProvider = graphProvider;
 
-            var colorBinding = new Binding();
-            colorBinding.Mode = BindingMode.OneWay;
-            colorBinding.Source = graphData;
-            colorBinding.Path = new PropertyPath("Color");
+            var colorBinding = new Binding
+            {
+                Mode = BindingMode.OneWay,
+                Source = graphData,
+                Path = new PropertyPath("Color")
+            };
             BindingOperations.SetBinding(this, GraphUIElement.ColorProperty, colorBinding);
 
             graphData.Blinking += new System.EventHandler<AnimationEventArgs>(this.Blinking);
@@ -116,18 +117,20 @@ namespace Palmmedia.WpfGraph.UI.Elements3D
         /// Flashed the <see cref="GraphUIElement"/>.
         /// </summary>
         /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="Palmmedia.WpfGraph.UI.ViewModels.AnimationEventArgs"/> instance containing the event data.</param>
-        protected virtual void Blinking(object sender, AnimationEventArgs e)
+        /// <param name="e">The <see cref="Palmmedia.WpfGraph.Ui.ViewModels.AnimationEventArgs"/> instance containing the event data.</param>
+        protected virtual void Blinking(object? sender, AnimationEventArgs e)
         {
             double repetitions = Math.Round(Math.Max(e.Duration, BLINKDURATION) / BLINKDURATION);
 
-            var colorAnimation = new ColorAnimation();
-            colorAnimation.Duration = TimeSpan.FromMilliseconds(BLINKDURATION);
-            colorAnimation.From = this.Color;
-            colorAnimation.To = BLINKCOLOR;
-            colorAnimation.AutoReverse = true;
-            colorAnimation.RepeatBehavior = new RepeatBehavior(repetitions);
-            colorAnimation.FillBehavior = FillBehavior.Stop;
+            var colorAnimation = new ColorAnimation
+            {
+                Duration = TimeSpan.FromMilliseconds(BLINKDURATION),
+                From = this.Color,
+                To = BLINKCOLOR,
+                AutoReverse = true,
+                RepeatBehavior = new RepeatBehavior(repetitions),
+                FillBehavior = FillBehavior.Stop
+            };
 
             if (e.Callback != null)
             {

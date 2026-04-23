@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Palmmedia.WpfGraph.UI.Algorithms;
-using Palmmedia.WpfGraph.UI.Interaction;
+using Palmmedia.WpfGraph.Ui.Algorithms;
+using Palmmedia.WpfGraph.Ui.Interaction;
 
-namespace Palmmedia.WpfGraph.UI.ViewModels.Menu
+namespace Palmmedia.WpfGraph.Ui.ViewModels.Menu
 {
     /// <summary>
     /// MenuItem containing <see cref="IAlgorithmMenuItemViewModel">IAlgorithmMenuItemViewModels</see> as child items.

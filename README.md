@@ -50,5 +50,5 @@ private void Callback()
 
 ## Resources
 
-* https//www.palmmedia.de/Blog/2009/12/29/wpf-animation-of-graph-algorithms-part-1
+* https://www.palmmedia.de/Blog/2009/12/29/wpf-animation-of-graph-algorithms-part-1
 * https://www.palmmedia.de/Blog/2009/12/29/wpf-animation-of-graph-algorithms-part-2

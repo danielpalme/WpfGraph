@@ -1,6 +1,6 @@
-﻿using System.Windows.Forms;
+﻿using System.Windows;
 
-namespace Palmmedia.WpfGraph.UI.Interaction
+namespace Palmmedia.WpfGraph.Ui.Interaction
 {
     /// <summary>
     /// <see cref="IMessageHandler"/> implementation using message boxes.

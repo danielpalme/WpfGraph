@@ -1,21 +1,17 @@
-using System;
 using System.Windows;
-using System.Windows.Media;
 using System.Windows.Media.Media3D;
 
-namespace Palmmedia.WpfGraph.UI.Elements3D.Tesselate
+namespace Palmmedia.WpfGraph.Ui.Elements3D.Tesselate
 {
     /// <summary>
     /// Creates a tesselate <see cref="MeshGeometry3D">MeshGeometry3D</see>
     /// wich may be used within a <see cref="System.Windows.Controls.Viewport3D">Viewport3D</see>
-    /// The Create() method should be used to create a new 
-    /// <see cref="MeshGeometry3D">MeshGeometry3D</see>.
+    /// The Create() method should be used to create a new <see cref="MeshGeometry3D">MeshGeometry3D</see>.
     /// </summary>
     internal static class SphereTesselate
     {
         /// <summary>
-        /// Tessellates the sphere and returns a MeshGeometry3D representing the 
-        /// tessellation based on the given parameters.
+        /// Tessellates the sphere and returns a MeshGeometry3D representing the tessellation based on the given parameters.
         /// </summary>
         /// <param name="tDiv">The number of theta divisions.</param>
         /// <param name="pDiv">The number of phi divisions.</param>
@@ -26,7 +22,7 @@ namespace Palmmedia.WpfGraph.UI.Elements3D.Tesselate
             double dt = MathHelper.DegToRad(360.0) / tDiv;
             double dp = MathHelper.DegToRad(180.0) / pDiv;
 
-            MeshGeometry3D mesh = new MeshGeometry3D();
+            MeshGeometry3D mesh = new();
 
             for (int pi = 0; pi <= pDiv; pi++)
             {

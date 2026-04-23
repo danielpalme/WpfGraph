@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Media;
-using Palmmedia.WpfGraph.Common;
+﻿using System.Windows.Media;
 using Palmmedia.WpfGraph.Core;
-using Palmmedia.WpfGraph.UI.Properties;
-using Palmmedia.WpfGraph.UI.ViewModels;
+using Palmmedia.WpfGraph.Ui.Properties;
+using Palmmedia.WpfGraph.Ui.ViewModels;
 
-namespace Palmmedia.WpfGraph.UI.Algorithms.SpanningTree
+namespace Palmmedia.WpfGraph.Ui.Algorithms.SpanningTree
 {
     /// <summary>
     /// The Dijkstra algorithm.
@@ -23,12 +19,12 @@ namespace Palmmedia.WpfGraph.UI.Algorithms.SpanningTree
         /// <summary>
         /// Dictionary containing the distance to each node.
         /// </summary>
-        private Dictionary<Node<NodeData, EdgeData>, double> node2DistanceDictionary;
+        private Dictionary<Node<NodeData, EdgeData>, double>? node2DistanceDictionary;
 
         /// <summary>
         /// The unvisited nodes.
         /// </summary>
-        private HashSet<Node<NodeData, EdgeData>> unvisitedNodes;
+        private HashSet<Node<NodeData, EdgeData>>? unvisitedNodes;
 
         /// <summary>
         /// Gets the name of the algorithm.
@@ -46,7 +42,7 @@ namespace Palmmedia.WpfGraph.UI.Algorithms.SpanningTree
         /// The category is used to generate a menu entry.
         /// Return <c>null</c> if algorithm should appear in root menu.
         /// </summary>
-        public string Category
+        public string? Category
         {
             get
             {
@@ -62,12 +58,12 @@ namespace Palmmedia.WpfGraph.UI.Algorithms.SpanningTree
         public void Execute(IGraph<NodeData, EdgeData> graph)
         {
             // Weight of edges must be positive
-            if (graph.Edges.Count(e => e.Data.Weight <= 0) > 0)
+            if (graph.Edges.Count(e => e.Data!.Weight <= 0) > 0)
             {
                 throw new InvalidOperationException(GraphAlgorithmErrors.EdgeWeightsNegative);
             }
 
-            var markedNodes = graph.Nodes.Where(n => n.Data.Marked);
+            var markedNodes = graph.Nodes.Where(n => n.Data!.Marked);
 
             // One node must be marked
             if (markedNodes.Count() != 1)
@@ -95,13 +91,13 @@ namespace Palmmedia.WpfGraph.UI.Algorithms.SpanningTree
         {
             currentNode.ChangeColor(Colors.SteelBlue);
 
-            double currentWeight = this.node2DistanceDictionary[currentNode];
+            double currentWeight = this.node2DistanceDictionary![currentNode];
 
             foreach (var edge in currentNode.OutgoingEdges.Where(e => e.FirstNode != e.SecondNode))
-	        {
+            {
                 var targetNode = edge.FirstNode == currentNode ? edge.SecondNode : edge.FirstNode;
 
-                double newWeight = currentWeight + edge.Data.Weight;
+                double newWeight = currentWeight + edge.Data!.Weight;
 
                 // If edge has lower distance to target node, then update to new distance
                 if (newWeight < this.node2DistanceDictionary[targetNode])
@@ -109,9 +105,9 @@ namespace Palmmedia.WpfGraph.UI.Algorithms.SpanningTree
                     edge.ChangeColor(Colors.SteelBlue);
                     this.node2DistanceDictionary[targetNode] = newWeight;
                 }
-	        }
+            }
 
-            this.unvisitedNodes.Remove(currentNode);
+            this.unvisitedNodes!.Remove(currentNode);
 
             // Continue with unvisited node with the minimum distance
             var nextNode = this.unvisitedNodes.OrderBy(n => this.node2DistanceDictionary[n]).FirstOrDefault();

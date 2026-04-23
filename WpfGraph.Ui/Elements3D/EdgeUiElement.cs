@@ -1,11 +1,10 @@
 ﻿using System.Windows;
 using System.Windows.Media;
-using Palmmedia.WpfGraph.Common;
 using Palmmedia.WpfGraph.Core;
-using Palmmedia.WpfGraph.UI.Interaction;
-using Palmmedia.WpfGraph.UI.ViewModels;
+using Palmmedia.WpfGraph.Ui.Interaction;
+using Palmmedia.WpfGraph.Ui.ViewModels;
 
-namespace Palmmedia.WpfGraph.UI.Elements3D
+namespace Palmmedia.WpfGraph.Ui.Elements3D
 {
     /// <summary>
     /// Represents an edge.
@@ -18,7 +17,7 @@ namespace Palmmedia.WpfGraph.UI.Elements3D
         /// <param name="graphProvider">The <see cref="IGraphProvider"/>.</param>
         /// <param name="edge">The edge.</param>
         public EdgeUIElement(IGraphProvider graphProvider, Edge<NodeData, EdgeData> edge)
-            : base(graphProvider, edge.Data)
+            : base(graphProvider, edge.Data!)
         {
             this.Edge = edge;
 
@@ -51,7 +50,7 @@ namespace Palmmedia.WpfGraph.UI.Elements3D
         {
             base.OnMouseRightButtonDown(e);
 
-            this.Edge.Data.Marked = !this.Edge.Data.Marked;
+            this.Edge.Data!.Marked = !this.Edge.Data.Marked;
         }
 
         /// <summary>
@@ -60,11 +59,13 @@ namespace Palmmedia.WpfGraph.UI.Elements3D
         /// <returns>The brush.</returns>
         protected Brush CreateBrush()
         {
-            var markedColor = this.Edge.Data.Marked ? Colors.Green : Colors.Red;
+            var markedColor = this.Edge.Data!.Marked ? Colors.Green : Colors.Red;
 
-            var brush = new LinearGradientBrush();
-            brush.StartPoint = new Point(0.5, 0);
-            brush.EndPoint = new Point(0.5, 1);
+            var brush = new LinearGradientBrush
+            {
+                StartPoint = new Point(0.5, 0),
+                EndPoint = new Point(0.5, 1)
+            };
 
             if (this.Edge.EdgeDirection != EdgeDirection.First2Second)
             {

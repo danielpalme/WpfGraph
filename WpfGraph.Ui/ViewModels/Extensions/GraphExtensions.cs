@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Palmmedia.WpfGraph.Common;
-using Palmmedia.WpfGraph.UI.ViewModels;
+﻿using Palmmedia.WpfGraph.Ui.ViewModels;
 
 namespace Palmmedia.WpfGraph.Core
 {
@@ -46,7 +43,7 @@ namespace Palmmedia.WpfGraph.Core
         /// <returns>The added edge.</returns>
         public static Edge<NodeData, EdgeData> AddEdge(this IGraph<NodeData, EdgeData> graph, Node<NodeData, EdgeData> firstNode, Node<NodeData, EdgeData> secondNode)
         {
-            var edge = new Edge<NodeData, EdgeData>(firstNode, secondNode); 
+            var edge = new Edge<NodeData, EdgeData>(firstNode, secondNode);
             graph.Add(edge);
 
             return edge;
@@ -116,8 +113,10 @@ namespace Palmmedia.WpfGraph.Core
 
             while (currentNode != null)
             {
-                var visitedNodes = new HashSet<Node<NodeData, EdgeData>>();
-                visitedNodes.Add(currentNode);
+                var visitedNodes = new HashSet<Node<NodeData, EdgeData>>
+                {
+                    currentNode
+                };
                 var reachableNodes = ReachableNodes(currentNode, visitedNodes);
 
                 foreach (var node in reachableNodes)

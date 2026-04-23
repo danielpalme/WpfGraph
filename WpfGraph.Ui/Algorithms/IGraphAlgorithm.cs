@@ -1,7 +1,7 @@
 ﻿using Palmmedia.WpfGraph.Core;
-using Palmmedia.WpfGraph.UI.ViewModels;
+using Palmmedia.WpfGraph.Ui.ViewModels;
 
-namespace Palmmedia.WpfGraph.UI.Algorithms
+namespace Palmmedia.WpfGraph.Ui.Algorithms
 {
     /// <summary>
     /// All classes that execute an arbitrary graph algorithm/animation have to implement this interface.
@@ -19,7 +19,7 @@ namespace Palmmedia.WpfGraph.UI.Algorithms
         /// The category is used to generate a menu entry.
         /// Return <c>null</c> if algorithm should appear in root menu.
         /// </summary>
-        string Category { get; }
+        string? Category { get; }
 
         /// <summary>
         /// Executes the algorithm.

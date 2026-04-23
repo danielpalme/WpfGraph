@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Palmmedia.WpfGraph.Core
+﻿namespace Palmmedia.WpfGraph.Core
 {
     /// <summary>
     /// Base class for all <see cref="IGraph&lt;TNodeType, TEdgeType&gt;"/> implementations.
@@ -12,22 +10,22 @@ namespace Palmmedia.WpfGraph.Core
         /// <summary>
         /// Occurs after an <see cref="Edge&lt;TNodeType, TEdgeType&gt;"/> has been added.
         /// </summary>
-        public event EventHandler<EdgeEventArgs<TNodeType, TEdgeType>> EdgeAdded;
+        public event EventHandler<EdgeEventArgs<TNodeType, TEdgeType>>? EdgeAdded;
 
         /// <summary>
         /// Occurs after an <see cref="Node&lt;TNodeType, TEdgeType&gt;"/> has been added.
         /// </summary>
-        public event EventHandler<NodeEventArgs<TNodeType, TEdgeType>> NodeAdded;
+        public event EventHandler<NodeEventArgs<TNodeType, TEdgeType>>? NodeAdded;
 
         /// <summary>
         /// Occurs after an <see cref="Edge&lt;TNodeType, TEdgeType&gt;"/> has been removed.
         /// </summary>
-        public event EventHandler<EdgeEventArgs<TNodeType, TEdgeType>> EdgeRemoved;
+        public event EventHandler<EdgeEventArgs<TNodeType, TEdgeType>>? EdgeRemoved;
 
         /// <summary>
         /// Occurs after an <see cref="Node&lt;TNodeType, TEdgeType&gt;"/> has been removed.
         /// </summary>
-        public event EventHandler<NodeEventArgs<TNodeType, TEdgeType>> NodeRemoved;
+        public event EventHandler<NodeEventArgs<TNodeType, TEdgeType>>? NodeRemoved;
 
         /// <summary>
         /// Raises the <see cref="E:EdgeAdded"/> event.
@@ -35,10 +33,7 @@ namespace Palmmedia.WpfGraph.Core
         /// <param name="args">The <see cref="Palmmedia.WpfGraph.Core.EdgeEventArgs&lt;TNodeType,TEdgeType&gt;"/> instance containing the event data.</param>
         protected virtual void OnEdgeAdded(EdgeEventArgs<TNodeType, TEdgeType> args)
         {
-            if (this.EdgeAdded != null)
-            {
-                this.EdgeAdded(this, args);
-            }
+            this.EdgeAdded?.Invoke(this, args);
         }
 
         /// <summary>
@@ -47,10 +42,7 @@ namespace Palmmedia.WpfGraph.Core
         /// <param name="args">The <see cref="Palmmedia.WpfGraph.Core.NodeEventArgs&lt;TNodeType,TEdgeType&gt;"/> instance containing the event data.</param>
         protected virtual void OnNodeAdded(NodeEventArgs<TNodeType, TEdgeType> args)
         {
-            if (this.NodeAdded != null)
-            {
-                this.NodeAdded(this, args);
-            }
+            this.NodeAdded?.Invoke(this, args);
         }
 
         /// <summary>
@@ -59,10 +51,7 @@ namespace Palmmedia.WpfGraph.Core
         /// <param name="args">The <see cref="Palmmedia.WpfGraph.Core.EdgeEventArgs&lt;TNodeType,TEdgeType&gt;"/> instance containing the event data.</param>
         protected virtual void OnEdgeRemoved(EdgeEventArgs<TNodeType, TEdgeType> args)
         {
-            if (this.EdgeRemoved != null)
-            {
-                this.EdgeRemoved(this, args);
-            }
+            this.EdgeRemoved?.Invoke(this, args);
         }
 
         /// <summary>
@@ -71,10 +60,7 @@ namespace Palmmedia.WpfGraph.Core
         /// <param name="args">The <see cref="Palmmedia.WpfGraph.Core.NodeEventArgs&lt;TNodeType,TEdgeType&gt;"/> instance containing the event data.</param>
         protected virtual void OnNodeRemoved(NodeEventArgs<TNodeType, TEdgeType> args)
         {
-            if (this.NodeRemoved != null)
-            {
-                this.NodeRemoved(this, args);
-            }
+            this.NodeRemoved?.Invoke(this, args);
         }
     }
 }

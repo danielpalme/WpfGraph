@@ -1,21 +1,23 @@
-﻿using System;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Palmmedia.WpfGraph.Core;
-
-namespace Palmmedia.WpfGraph.CoreTest
+﻿namespace Palmmedia.WpfGraph.Core.Test
 {
-    [TestClass]
     public class GraphTest
     {
-        private IGraph<object, object> graph1, graph2;
+        private Graph<object, object> graph1;
+        private Graph<object, object> graph2;
 
-        private Node<object, object> node1, node2, node3, node4, node5;
+        private Node<object, object> node1;
+        private Node<object, object> node2;
+        private Node<object, object> node3;
+        private Node<object, object> node4;
+        private Node<object, object> node5;
 
-        private Edge<object, object> edge1, edge2, edge3, edge4, edge5;
+        private Edge<object, object> edge1;
+        private Edge<object, object> edge2;
+        private Edge<object, object> edge3;
+        private Edge<object, object> edge4;
+        private Edge<object, object> edge5;
 
-        [TestInitialize()]
-        public void MyTestInitialize()
+        public GraphTest()
         {
             this.graph1 = new Graph<object, object>();
             this.graph2 = new Graph<object, object>();
@@ -36,77 +38,85 @@ namespace Palmmedia.WpfGraph.CoreTest
             this.graph2.Add(this.node2);
             this.graph2.Add(this.node3);
             this.graph2.Add(this.node4);
-            this.graph2.Add(edge1);
-            this.graph2.Add(edge2);
-            this.graph2.Add(edge3);
-            this.graph2.Add(edge4);
-            this.graph2.Add(edge5);
+            this.graph2.Add(this.edge1);
+            this.graph2.Add(this.edge2);
+            this.graph2.Add(this.edge3);
+            this.graph2.Add(this.edge4);
+            this.graph2.Add(this.edge5);
         }
 
         #region Adding/Removing nodes
-        [TestMethod]
+        [Fact]
         public void Add_GraphContainsNodeAfterAdding()
         {
             this.graph1.Add(this.node1);
 
-            Assert.IsTrue(this.graph1.Nodes.Contains(this.node1), "Graph does not contain node.");
+            Assert.Contains(this.node1, this.graph1.Nodes);
         }
 
-        [TestMethod]
+        [Fact]
         public void Add_AddingNodeRaisesEvent()
         {
-            EventArgs args = null;
+            EventArgs? args = null;
             int counter = 0;
-            this.graph1.NodeAdded += new EventHandler<NodeEventArgs<object, object>>((sender, e) => { counter++; args = e; });
+            this.graph1.NodeAdded += new EventHandler<NodeEventArgs<object, object>>((sender, e) =>
+            {
+                counter++;
+                args = e;
+            });
 
             this.graph1.Add(this.node1);
 
-            Assert.AreEqual(1, counter, "Event not raised.");
-            Assert.IsNotNull(args, "EventArgs must not be null.");
+            Assert.Equal(1, counter);
+            Assert.NotNull(args);
         }
 
-        [TestMethod]
+        [Fact]
         public void Remove_GraphNotContainsNodeAfterRemoving()
         {
             this.graph1.Add(this.node1);
 
             this.graph1.Remove(this.node1);
 
-            Assert.IsFalse(this.graph1.Nodes.Contains(this.node1), "Graph does contain node.");
+            Assert.DoesNotContain(this.node1, this.graph1.Nodes);
         }
 
-        [TestMethod]
+        [Fact]
         public void Remove_GraphNotContainsEdgeAfterRemovingNode()
         {
             this.graph1.Add(this.node1);
             this.graph1.Add(this.node2);
             this.graph1.Add(this.edge1);
 
-            Assert.IsTrue(this.graph1.Edges.Contains(this.edge1), "Graph does not contain edge.");
+            Assert.Contains(this.edge1, this.graph1.Edges);
 
             this.graph1.Remove(this.node1);
 
-            Assert.IsFalse(this.graph1.Edges.Contains(this.edge1), "Graph does still contain edge.");
-            Assert.IsFalse(this.graph1.Nodes.Contains(this.node1), "Graph does contain node.");
+            Assert.DoesNotContain(this.edge1, this.graph1.Edges);
+            Assert.DoesNotContain(this.node1, this.graph1.Nodes);
         }
 
-        [TestMethod]
+        [Fact]
         public void Remove_RemovingNodeRaisesEvent()
         {
             this.graph1.Add(this.node1);
-            EventArgs args = null;
+            EventArgs? args = null;
             int counter = 0;
-            this.graph1.NodeRemoved += new EventHandler<NodeEventArgs<object, object>>((sender, e) => { counter++; args = e; });
+            this.graph1.NodeRemoved += new EventHandler<NodeEventArgs<object, object>>((sender, e) =>
+            {
+                counter++;
+                args = e;
+            });
 
             this.graph1.Remove(this.node1);
 
-            Assert.AreEqual(1, counter, "Event not raised.");
-            Assert.IsNotNull(args, "EventArgs must not be null.");
+            Assert.Equal(1, counter);
+            Assert.NotNull(args);
         }
         #endregion
 
         #region Adding/Removing edge
-        [TestMethod]
+        [Fact]
         public void Add_GraphContainsEdgeAfterAdding()
         {
             var edge = new Edge<object, object>(this.node1, this.node2);
@@ -115,26 +125,30 @@ namespace Palmmedia.WpfGraph.CoreTest
 
             this.graph1.Add(edge);
 
-            Assert.IsTrue(this.graph1.Edges.Contains(edge), "Graph does not contain edge.");
+            Assert.Contains(edge, this.graph1.Edges);
         }
 
-        [TestMethod]
+        [Fact]
         public void Add_AddingEdgeRaisesEvent()
         {
-            EventArgs args = null;
+            EventArgs? args = null;
             int counter = 0;
-            this.graph1.EdgeAdded += new EventHandler<EdgeEventArgs<object, object>>((sender, e) => { counter++; args = e; });
+            this.graph1.EdgeAdded += new EventHandler<EdgeEventArgs<object, object>>((sender, e) =>
+            {
+                counter++;
+                args = e;
+            });
             var edge = new Edge<object, object>(this.node1, this.node2);
 
             this.graph1.Add(this.node1);
             this.graph1.Add(this.node2);
             this.graph1.Add(edge);
 
-            Assert.AreEqual(1, counter, "Event not raised.");
-            Assert.IsNotNull(args, "EventArgs must not be null.");
+            Assert.Equal(1, counter);
+            Assert.NotNull(args);
         }
 
-        [TestMethod]
+        [Fact]
         public void Add_AddingEdgeWithoutAddingNodesFails()
         {
             var edge = new Edge<object, object>(this.node1, this.node2);
@@ -162,10 +176,10 @@ namespace Palmmedia.WpfGraph.CoreTest
             this.graph1.Add(this.node2);
             this.graph1.Add(edge);
 
-            Assert.IsTrue(this.graph1.Edges.Contains(edge), "Graph does not contain edge.");
+            Assert.Contains(edge, this.graph1.Edges);
         }
 
-        [TestMethod]
+        [Fact]
         public void Remove_GraphNotContainsEdgeAfterRemoving()
         {
             var edge = new Edge<object, object>(this.node1, this.node2);
@@ -175,114 +189,118 @@ namespace Palmmedia.WpfGraph.CoreTest
 
             this.graph1.Remove(edge);
 
-            Assert.IsFalse(this.graph1.Edges.Contains(edge), "Graph does contain edge.");
+            Assert.DoesNotContain(edge, this.graph1.Edges);
         }
 
-        [TestMethod]
+        [Fact]
         public void Remove_RemovingEdgeRaisesEvent()
         {
             var edge = new Edge<object, object>(this.node1, this.node2);
             this.graph1.Add(this.node1);
             this.graph1.Add(this.node2);
             this.graph1.Add(edge);
-            EventArgs args = null;
+            EventArgs? args = null;
             int counter = 0;
-            this.graph1.EdgeRemoved += new EventHandler<EdgeEventArgs<object, object>>((sender, e) => { counter++; args = e; });
+            this.graph1.EdgeRemoved += new EventHandler<EdgeEventArgs<object, object>>((sender, e) =>
+            {
+                counter++;
+                args = e;
+            });
 
             this.graph1.Remove(edge);
 
-            Assert.AreEqual(1, counter, "Event not raised.");
-            Assert.IsNotNull(args, "EventArgs must not be null.");
+            Assert.Equal(1, counter);
+            Assert.NotNull(args);
         }
         #endregion
 
         #region Clear
-        [TestMethod]
+        [Fact]
         public void Clear_GraphIsEmptyAfterClear()
         {
             this.graph2.Clear();
 
-            Assert.AreEqual(0, this.graph2.Nodes.Count(), "Graph still contains nodes.");
-            Assert.AreEqual(0, this.graph2.Edges.Count(), "Graph still contains edges.");
+            Assert.Empty(this.graph2.Nodes);
+            Assert.Empty(this.graph2.Edges);
         }
         #endregion
 
         #region Edges
-        [TestMethod]
+        [Fact]
         public void GetEdgesOfNode_ReturnsCorrectEdges()
         {
             var edges = this.graph2.GetEdgesOfNode(this.node1);
 
-            Assert.AreEqual(5, edges.Count(), "Invalid number of edges.");
-            Assert.IsTrue(edges.Contains(edge1), "Graph does not contain edge.");
-            Assert.IsTrue(edges.Contains(edge2), "Graph does not contain edge.");
-            Assert.IsTrue(edges.Contains(edge3), "Graph does not contain edge.");
-            Assert.IsTrue(edges.Contains(edge4), "Graph does not contain edge.");
-            Assert.IsTrue(edges.Contains(edge5), "Graph does not contain edge.");
+            Assert.Equal(5, edges.Count());
+            Assert.Contains(this.edge1, edges);
+            Assert.Contains(this.edge2, edges);
+            Assert.Contains(this.edge3, edges);
+            Assert.Contains(this.edge4, edges);
+            Assert.Contains(this.edge5, edges);
 
             edges = this.graph2.GetEdgesOfNode(this.node2);
-            Assert.AreEqual(3, edges.Count(), "Invalid number of edges.");
-            Assert.IsTrue(edges.Contains(edge1), "Graph does not contain edge.");
-            Assert.IsTrue(edges.Contains(edge4), "Graph does not contain edge.");
-            Assert.IsTrue(edges.Contains(edge5), "Graph does not contain edge.");
+            Assert.Equal(3, edges.Count());
+            Assert.Contains(this.edge1, edges);
+            Assert.Contains(this.edge4, edges);
+            Assert.Contains(this.edge5, edges);
 
             edges = this.graph2.GetEdgesOfNode(this.node3);
-            Assert.AreEqual(1, edges.Count(), "Invalid number of edges.");
-            Assert.IsTrue(edges.Contains(edge2), "Graph does not contain edge.");
+            Assert.Single(edges);
+            Assert.Contains(this.edge2, edges);
 
             edges = this.graph2.GetEdgesOfNode(this.node4);
-            Assert.AreEqual(0, edges.Count(), "Invalid number of edges.");
+            Assert.Empty(edges);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetIncomingEdgesOfNode_ReturnsCorrectEdges()
         {
             var edges = this.graph2.GetIncomingEdgesOfNode(this.node1);
 
-            Assert.AreEqual(4, edges.Count(), "Invalid number of edges.");
-            Assert.IsTrue(edges.Contains(edge1), "Graph does not contain edge.");
-            Assert.IsTrue(edges.Contains(edge2), "Graph does not contain edge.");
-            Assert.IsTrue(edges.Contains(edge3), "Graph does not contain edge.");
-            Assert.IsTrue(edges.Contains(edge5), "Graph does not contain edge.");
+            Assert.Equal(4, edges.Count());
+            Assert.Contains(this.edge1, edges);
+            Assert.Contains(this.edge2, edges);
+            Assert.Contains(this.edge3, edges);
+            Assert.Contains(this.edge5, edges);
 
             edges = this.graph2.GetIncomingEdgesOfNode(this.node2);
-            Assert.AreEqual(2, edges.Count(), "Invalid number of edges.");
-            Assert.IsTrue(edges.Contains(edge1), "Graph does not contain edge.");
-            Assert.IsTrue(edges.Contains(edge4), "Graph does not contain edge.");
+            Assert.Equal(2, edges.Count());
+            Assert.Contains(this.edge1, edges);
+            Assert.Contains(this.edge4, edges);
 
             edges = this.graph2.GetIncomingEdgesOfNode(this.node3);
-            Assert.AreEqual(1, edges.Count(), "Invalid number of edges.");
-            Assert.IsTrue(edges.Contains(edge2), "Graph does not contain edge.");
+            Assert.Single(edges);
+            Assert.Contains(this.edge2, edges);
 
             edges = this.graph2.GetIncomingEdgesOfNode(this.node4);
-            Assert.AreEqual(0, edges.Count(), "Invalid number of edges.");
+            Assert.Empty(edges);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetOutgoingEdgesOfNode_ReturnsCorrectEdges()
         {
             var edges = this.graph2.GetOutgoingEdgesOfNode(this.node1);
 
-            Assert.AreEqual(4, edges.Count(), "Invalid number of edges.");
-            Assert.IsTrue(edges.Contains(edge1), "Graph does not contain edge.");
-            Assert.IsTrue(edges.Contains(edge2), "Graph does not contain edge.");
-            Assert.IsTrue(edges.Contains(edge3), "Graph does not contain edge.");
-            Assert.IsTrue(edges.Contains(edge4), "Graph does not contain edge.");
+            Assert.Equal(4, edges.Count());
+            Assert.Contains(this.edge1, edges);
+            Assert.Contains(this.edge2, edges);
+            Assert.Contains(this.edge3, edges);
+            Assert.Contains(this.edge4, edges);
 
             edges = this.graph2.GetOutgoingEdgesOfNode(this.node2);
-            Assert.AreEqual(2, edges.Count(), "Invalid number of edges.");
-            Assert.IsTrue(edges.Contains(edge1), "Graph does not contain edge.");
-            Assert.IsTrue(edges.Contains(edge5), "Graph does not contain edge.");
+            Assert.Equal(2, edges.Count());
+            Assert.Contains(this.edge1, edges);
+            Assert.Contains(this.edge5, edges);
 
             edges = this.graph2.GetOutgoingEdgesOfNode(this.node3);
-            Assert.AreEqual(1, edges.Count(), "Invalid number of edges.");
-            Assert.IsTrue(edges.Contains(edge2), "Graph does not contain edge.");
+            Assert.Single(edges);
+            Assert.Contains(this.edge2, edges);
 
             edges = this.graph2.GetOutgoingEdgesOfNode(this.node4);
-            Assert.AreEqual(0, edges.Count(), "Invalid number of edges.");
+            Assert.Empty(edges);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetEdgesOfNode_FailsWhenNotAttachedToGraph()
         {
             try
@@ -297,70 +315,70 @@ namespace Palmmedia.WpfGraph.CoreTest
         #endregion
 
         #region Neighbors
-        [TestMethod]
+        [Fact]
         public void GetNeighborsOfNode_ReturnsCorrectNodes()
         {
             var nodes = this.graph2.GetNeighborsOfNode(this.node1);
 
-            Assert.AreEqual(3, nodes.Count(), "Invalid number of nodes.");
-            Assert.IsTrue(nodes.Contains(node1), "Graph does not contain node.");
-            Assert.IsTrue(nodes.Contains(node2), "Graph does not contain node.");
-            Assert.IsTrue(nodes.Contains(node3), "Graph does not contain node.");
+            Assert.Equal(3, nodes.Count());
+            Assert.Contains(this.node1, nodes);
+            Assert.Contains(this.node2, nodes);
+            Assert.Contains(this.node3, nodes);
 
             nodes = this.graph2.GetNeighborsOfNode(this.node2);
-            Assert.AreEqual(1, nodes.Count(), "Invalid number of nodes.");
-            Assert.IsTrue(nodes.Contains(node1), "Graph does not contain node.");
+            Assert.Single(nodes);
+            Assert.Contains(this.node1, nodes);
 
             nodes = this.graph2.GetNeighborsOfNode(this.node3);
-            Assert.AreEqual(1, nodes.Count(), "Invalid number of nodes.");
-            Assert.IsTrue(nodes.Contains(node1), "Graph does not contain node.");
+            Assert.Single(nodes);
+            Assert.Contains(this.node1, nodes);
 
             nodes = this.graph2.GetNeighborsOfNode(this.node4);
-            Assert.AreEqual(0, nodes.Count(), "Invalid number of nodes.");
+            Assert.Empty(nodes);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetIncomingNeighborsOfNode_ReturnsCorrectNodes()
         {
             var nodes = this.graph2.GetIncomingNeighborsOfNode(this.node1);
 
-            Assert.AreEqual(3, nodes.Count(), "Invalid number of nodes.");
-            Assert.IsTrue(nodes.Contains(node1), "Graph does not contain node.");
-            Assert.IsTrue(nodes.Contains(node2), "Graph does not contain node.");
-            Assert.IsTrue(nodes.Contains(node3), "Graph does not contain node.");
+            Assert.Equal(3, nodes.Count());
+            Assert.Contains(this.node1, nodes);
+            Assert.Contains(this.node2, nodes);
+            Assert.Contains(this.node3, nodes);
 
             nodes = this.graph2.GetIncomingNeighborsOfNode(this.node2);
-            Assert.AreEqual(1, nodes.Count(), "Invalid number of nodes.");
-            Assert.IsTrue(nodes.Contains(node1), "Graph does not contain node.");
+            Assert.Single(nodes);
+            Assert.Contains(this.node1, nodes);
 
             nodes = this.graph2.GetIncomingNeighborsOfNode(this.node3);
-            Assert.AreEqual(1, nodes.Count(), "Invalid number of nodes.");
-            Assert.IsTrue(nodes.Contains(node1), "Graph does not contain node.");
+            Assert.Single(nodes);
+            Assert.Contains(this.node1, nodes);
 
             nodes = this.graph2.GetIncomingNeighborsOfNode(this.node4);
-            Assert.AreEqual(0, nodes.Count(), "Invalid number of nodes.");
+            Assert.Empty(nodes);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetOutgoingNeighborsOfNode_ReturnsCorrectNodes()
         {
             var nodes = this.graph2.GetOutgoingNeighborsOfNode(this.node1);
 
-            Assert.AreEqual(3, nodes.Count(), "Invalid number of nodes.");
-            Assert.IsTrue(nodes.Contains(node1), "Graph does not contain node.");
-            Assert.IsTrue(nodes.Contains(node2), "Graph does not contain node.");
-            Assert.IsTrue(nodes.Contains(node3), "Graph does not contain node.");
+            Assert.Equal(3, nodes.Count());
+            Assert.Contains(this.node1, nodes);
+            Assert.Contains(this.node2, nodes);
+            Assert.Contains(this.node3, nodes);
 
             nodes = this.graph2.GetOutgoingNeighborsOfNode(this.node2);
-            Assert.AreEqual(1, nodes.Count(), "Invalid number of nodes.");
-            Assert.IsTrue(nodes.Contains(node1), "Graph does not contain node.");
+            Assert.Single(nodes);
+            Assert.Contains(this.node1, nodes);
 
             nodes = this.graph2.GetOutgoingNeighborsOfNode(this.node3);
-            Assert.AreEqual(1, nodes.Count(), "Invalid number of nodes.");
-            Assert.IsTrue(nodes.Contains(node1), "Graph does not contain node.");
+            Assert.Single(nodes);
+            Assert.Contains(this.node1, nodes);
 
             nodes = this.graph2.GetOutgoingNeighborsOfNode(this.node4);
-            Assert.AreEqual(0, nodes.Count(), "Invalid number of nodes.");
+            Assert.Empty(nodes);
 
             this.edge1 = new Edge<object, object>(this.node1, this.node2);
             this.edge2 = new Edge<object, object>(this.node1, this.node3);
@@ -369,7 +387,7 @@ namespace Palmmedia.WpfGraph.CoreTest
             this.edge5 = new Edge<object, object>(this.node1, this.node2, EdgeDirection.Second2First);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetNeighborsOfNode_FailsWhenNotAttachedToGraph()
         {
             try

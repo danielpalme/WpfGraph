@@ -1,8 +1,7 @@
-﻿using System;
-using System.Windows.Media;
+﻿using System.Windows.Media;
 using Palmmedia.WpfGraph.Core;
 
-namespace Palmmedia.WpfGraph.UI.ViewModels
+namespace Palmmedia.WpfGraph.Ui.ViewModels
 {
     /// <summary>
     /// Extension methods to simplify changing properties of data attached to an edge.
@@ -16,7 +15,7 @@ namespace Palmmedia.WpfGraph.UI.ViewModels
         /// <param name="color">The color.</param>
         public static void ChangeColor(this Edge<NodeData, EdgeData> edge, Color color)
         {
-            edge.Data.Color = color;
+            edge.Data!.Color = color;
         }
 
         /// <summary>
@@ -25,7 +24,7 @@ namespace Palmmedia.WpfGraph.UI.ViewModels
         /// <param name="edge">The edge.</param>
         public static void Blink(this Edge<NodeData, EdgeData> edge)
         {
-            edge.Data.Blink();
+            edge.Data!.Blink();
         }
 
         /// <summary>
@@ -35,7 +34,7 @@ namespace Palmmedia.WpfGraph.UI.ViewModels
         /// <param name="duration">The duration of the animation.</param>
         public static void Blink(this Edge<NodeData, EdgeData> edge, double duration)
         {
-            edge.Data.Blink(duration);
+            edge.Data!.Blink(duration);
         }
 
         /// <summary>
@@ -45,7 +44,7 @@ namespace Palmmedia.WpfGraph.UI.ViewModels
         /// <param name="callback">The <see cref="Action">callback</see> executed at the end of the animation.</param>
         public static void Blink(this Edge<NodeData, EdgeData> edge, Action callback)
         {
-            edge.Data.Blink(callback);
+            edge.Data!.Blink(callback);
         }
 
         /// <summary>
@@ -56,7 +55,7 @@ namespace Palmmedia.WpfGraph.UI.ViewModels
         /// <param name="callback">The <see cref="Action">callback</see> executed at the end of the animation.</param>
         public static void Blink(this Edge<NodeData, EdgeData> edge, double duration, Action callback)
         {
-            edge.Data.Blink(duration, callback);
+            edge.Data!.Blink(duration, callback);
         }
 
         /// <summary>

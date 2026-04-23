@@ -1,7 +1,6 @@
-﻿using System;
-using System.Windows.Media;
+﻿using System.Windows.Media;
 
-namespace Palmmedia.WpfGraph.UI.ViewModels
+namespace Palmmedia.WpfGraph.Ui.ViewModels
 {
     /// <summary>
     /// Base class for Data attached to an <see cref="Palmmedia.WpfGraph.Core.GraphElement&lt;TNodeType, TEdgeType&gt;"/>.
@@ -26,7 +25,7 @@ namespace Palmmedia.WpfGraph.UI.ViewModels
         /// <summary>
         /// Occurs when the element should blink.
         /// </summary>
-        public event EventHandler<AnimationEventArgs> Blinking;
+        public event EventHandler<AnimationEventArgs>? Blinking;
 
         /// <summary>
         /// Gets or sets the color.
@@ -41,14 +40,14 @@ namespace Palmmedia.WpfGraph.UI.ViewModels
             set
             {
                 this.color = value;
-                this.OnPropertyChanged("Color");
+                this.OnPropertyChanged(nameof(this.Color));
             }
         }
 
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="GraphDataBase"/> is marked.
         /// Determines whether the element is in a selection state.
-        /// The selection state can be used to start an <see cref="Palmmedia.WpfGraph.UI.Algorithms.IGraphAlgorithm"/>
+        /// The selection state can be used to start an <see cref="Palmmedia.WpfGraph.Ui.Algorithms.IGraphAlgorithm"/>
         /// on a marked <see cref="Palmmedia.WpfGraph.Core.GraphElement&lt;TNodeType, TEdgeType&gt;"/>.
         /// </summary>
         public bool Marked
@@ -61,7 +60,7 @@ namespace Palmmedia.WpfGraph.UI.ViewModels
             set
             {
                 this.marked = value;
-                this.OnPropertyChanged("Marked");
+                this.OnPropertyChanged(nameof(this.Marked));
             }
         }
 
@@ -96,7 +95,7 @@ namespace Palmmedia.WpfGraph.UI.ViewModels
         /// </summary>
         /// <param name="duration">The duration of the animation.</param>
         /// <param name="callback">The <see cref="Action">callback</see> executed at the end of the animation.</param>
-        public void Blink(double duration, Action callback)
+        public void Blink(double duration, Action? callback)
         {
             this.OnBlinking(new AnimationEventArgs(duration, callback));
         }
@@ -104,13 +103,10 @@ namespace Palmmedia.WpfGraph.UI.ViewModels
         /// <summary>
         /// Raises the <see cref="E:Blinking"/> event.
         /// </summary>
-        /// <param name="args">The <see cref="Palmmedia.WpfGraph.UI.ViewModels.AnimationEventArgs"/> instance containing the event data.</param>
+        /// <param name="args">The <see cref="Palmmedia.WpfGraph.Ui.ViewModels.AnimationEventArgs"/> instance containing the event data.</param>
         protected virtual void OnBlinking(AnimationEventArgs args)
         {
-            if (this.Blinking != null)
-            {
-                this.Blinking(this, args);
-            }
+            this.Blinking?.Invoke(this, args);
         }
     }
 }

@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Media.Media3D;
 using Palmmedia.WpfGraph.Core;
-using Palmmedia.WpfGraph.UI.Elements3D;
-using Palmmedia.WpfGraph.UI.Interaction;
+using Palmmedia.WpfGraph.Ui.Elements3D;
+using Palmmedia.WpfGraph.Ui.Interaction;
 
-namespace Palmmedia.WpfGraph.UI.ViewModels
+namespace Palmmedia.WpfGraph.Ui.ViewModels
 {
     /// <summary>
     /// The viewmodel of a graph.
@@ -19,46 +17,46 @@ namespace Palmmedia.WpfGraph.UI.ViewModels
         private static readonly log4net.ILog Logger = log4net.LogManager.GetLogger(typeof(GraphViewModel));
 
         /// <summary>
-        /// The camera position.
-        /// </summary>
-        private Point3D cameraPosition = new Point3D(0, 0, 40);        
-
-        /// <summary>
-        /// The graph.
-        /// </summary>
-        private IGraph<NodeData, EdgeData> graph;
-
-        /// <summary>
-        /// The currently selected node or edge.
-        /// </summary>
-        private GraphElement<NodeData, EdgeData> selectedElement;
-
-        /// <summary>
         /// Dictionaray containing the <see cref="UIElement3D"/> per edge.
         /// </summary>
-        private Dictionary<Edge<NodeData, EdgeData>, UIElement3D> edge2VisualDictionary;
+        private readonly Dictionary<Edge<NodeData, EdgeData>, UIElement3D> edge2VisualDictionary;
 
         /// <summary>
         /// Dictionaray containing the <see cref="UIElement3D"/> per node.
         /// </summary>
-        private Dictionary<Node<NodeData, EdgeData>, NodeUIElement> node2VisualDictionary;
-        
+        private readonly Dictionary<Node<NodeData, EdgeData>, NodeUIElement> node2VisualDictionary;
+
+        /// <summary>
+        /// The camera position.
+        /// </summary>
+        private Point3D cameraPosition = new(0, 0, 40);
+
+        /// <summary>
+        /// The graph.
+        /// </summary>
+        private IGraph<NodeData, EdgeData> graph = null!;
+
+        /// <summary>
+        /// The currently selected node or edge.
+        /// </summary>
+        private GraphElement<NodeData, EdgeData>? selectedElement;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="GraphViewModel"/> class.
         /// </summary>
         /// <param name="graph">The graph.</param>
         public GraphViewModel(IGraph<NodeData, EdgeData> graph)
         {
-            this.node2VisualDictionary = new Dictionary<Node<NodeData, EdgeData>, NodeUIElement>();
-            this.edge2VisualDictionary = new Dictionary<Edge<NodeData, EdgeData>, UIElement3D>();
-            this.Graph = graph ?? throw new ArgumentNullException("graph");
+            this.node2VisualDictionary = [];
+            this.edge2VisualDictionary = [];
+            this.Graph = graph ?? throw new ArgumentNullException(nameof(graph));
         }
 
         /// <summary>
         /// Gets or sets the container displaying the graph elements.
         /// </summary>
-        /// <value></value>
-        public ContainerUIElement3D Container { get; set; }
+        /// <value>The container.</value>
+        public ContainerUIElement3D Container { get; set; } = null!;
 
         /// <summary>
         /// Gets or sets the zoom of the camera.
@@ -75,7 +73,7 @@ namespace Palmmedia.WpfGraph.UI.ViewModels
                 var cameraPosition = this.CameraPosition;
                 cameraPosition.Z = value;
                 this.CameraPosition = cameraPosition;
-                this.OnPropertyChanged("Zoom");
+                this.OnPropertyChanged(nameof(this.Zoom));
             }
         }
 
@@ -92,7 +90,7 @@ namespace Palmmedia.WpfGraph.UI.ViewModels
             private set
             {
                 this.cameraPosition = value;
-                this.OnPropertyChanged("CameraPosition");
+                this.OnPropertyChanged(nameof(this.CameraPosition));
             }
         }
 
@@ -151,15 +149,15 @@ namespace Palmmedia.WpfGraph.UI.ViewModels
                     this.graph.NodeRemoved += new EventHandler<NodeEventArgs<NodeData, EdgeData>>(this.Graph_NodeRemoved);
                 }
 
-                this.OnPropertyChanged("Graph");
+                this.OnPropertyChanged(nameof(this.Graph));
             }
         }
 
         /// <summary>
         /// Gets or sets the currently selected node or edge.
         /// </summary>
-        /// <value></value>
-        public GraphElement<NodeData, EdgeData> SelectedElement
+        /// <value>The currently selected node or edge.</value>
+        public GraphElement<NodeData, EdgeData>? SelectedElement
         {
             get
             {
@@ -170,16 +168,16 @@ namespace Palmmedia.WpfGraph.UI.ViewModels
             {
                 Logger.Debug("Selected new element: " + value);
                 this.selectedElement = value;
-                this.OnPropertyChanged("SelectedElement");
-                this.OnPropertyChanged("SelectedElements");
+                this.OnPropertyChanged(nameof(this.SelectedElement));
+                this.OnPropertyChanged(nameof(this.SelectedElements));
             }
         }
 
         /// <summary>
         /// Gets the selected elements.<br/>
-        /// Used as a workaround together with <see cref="Palmmedia.WpfGraph.UI.Resources.GraphElementTemplateSelector"/>, since generics are not supported in XAML.
+        /// Used as a workaround together with <see cref="Palmmedia.WpfGraph.Ui.Resources.GraphElementTemplateSelector"/>, since generics are not supported in XAML.
         /// </summary>
-        public IEnumerable<GraphElement<NodeData, EdgeData>> SelectedElements
+        public IEnumerable<GraphElement<NodeData, EdgeData>>? SelectedElements
         {
             get
             {
@@ -189,7 +187,7 @@ namespace Palmmedia.WpfGraph.UI.ViewModels
                 }
                 else
                 {
-                    return new GraphElement<NodeData, EdgeData>[] { this.selectedElement };
+                    return [this.selectedElement];
                 }
             }
         }
@@ -199,7 +197,7 @@ namespace Palmmedia.WpfGraph.UI.ViewModels
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="Palmmedia.WpfGraph.Core.EdgeEventArgs&lt;TNodeType, TEdgeType&gt;"/> instance containing the event data.</param>
-        private void Graph_EdgeAdded(object sender, EdgeEventArgs<NodeData, EdgeData> e)
+        private void Graph_EdgeAdded(object? sender, EdgeEventArgs<NodeData, EdgeData> e)
         {
             Logger.Debug("Added edge: " + e.Edge);
 
@@ -213,7 +211,7 @@ namespace Palmmedia.WpfGraph.UI.ViewModels
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="Palmmedia.WpfGraph.Core.NodeEventArgs&lt;TNodeType, TEdgeType&gt;"/> instance containing the event data.</param>
-        private void Graph_NodeAdded(object sender, NodeEventArgs<NodeData, EdgeData> e)
+        private void Graph_NodeAdded(object? sender, NodeEventArgs<NodeData, EdgeData> e)
         {
             Logger.Debug("Added node: " + e.Node);
 
@@ -227,7 +225,7 @@ namespace Palmmedia.WpfGraph.UI.ViewModels
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="Palmmedia.WpfGraph.Core.EdgeEventArgs&lt;TNodeType, TEdgeType&gt;"/> instance containing the event data.</param>
-        private void Graph_EdgeRemoved(object sender, EdgeEventArgs<NodeData, EdgeData> e)
+        private void Graph_EdgeRemoved(object? sender, EdgeEventArgs<NodeData, EdgeData> e)
         {
             Logger.Debug("Removed edge: " + e.Edge);
 
@@ -246,10 +244,10 @@ namespace Palmmedia.WpfGraph.UI.ViewModels
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="Palmmedia.WpfGraph.Core.NodeEventArgs&lt;TNodeType, TEdgeType&gt;"/> instance containing the event data.</param>
-        private void Graph_NodeRemoved(object sender, NodeEventArgs<NodeData, EdgeData> e)
+        private void Graph_NodeRemoved(object? sender, NodeEventArgs<NodeData, EdgeData> e)
         {
             Logger.Debug("Removed node: " + e.Node);
-            
+
             var visual = this.node2VisualDictionary[e.Node];
             this.Container.Children.Remove(visual);
             this.node2VisualDictionary.Remove(e.Node);

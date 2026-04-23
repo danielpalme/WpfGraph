@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Windows.Input;
 using Palmmedia.WpfGraph.Common;
-using Palmmedia.WpfGraph.UI.Interaction;
-using Palmmedia.WpfGraph.UI.IO;
-using Palmmedia.WpfGraph.UI.ViewModels.Menu;
+using Palmmedia.WpfGraph.Ui.Interaction;
+using Palmmedia.WpfGraph.Ui.IO;
+using Palmmedia.WpfGraph.Ui.ViewModels.Menu;
 
-namespace Palmmedia.WpfGraph.UI.ViewModels
+namespace Palmmedia.WpfGraph.Ui.ViewModels
 {
     /// <summary>
     /// The viewmodel for the main window.
@@ -26,9 +26,9 @@ namespace Palmmedia.WpfGraph.UI.ViewModels
         /// <param name="messageHandler">The <see cref="IMessageHandler"/>.</param>
         public MainWindowViewModel(IGraphProvider graphProvider, IFileSelector fileSelector, IMessageHandler messageHandler)
         {
-            this.GraphViewModel = graphProvider ?? throw new ArgumentNullException("graphProvider");
-            this.FileSelector = fileSelector ?? throw new ArgumentNullException("fileSelector");
-            this.MessageHandler = messageHandler ?? throw new ArgumentNullException("messageHandler");
+            this.GraphViewModel = graphProvider ?? throw new ArgumentNullException(nameof(graphProvider));
+            this.FileSelector = fileSelector ?? throw new ArgumentNullException(nameof(fileSelector));
+            this.MessageHandler = messageHandler ?? throw new ArgumentNullException(nameof(messageHandler));
 
             this.LoadGraphCommand = new RelayCommand(param => this.LoadGraph());
             this.SaveGraphCommand = new RelayCommand(param => this.SaveGraph());

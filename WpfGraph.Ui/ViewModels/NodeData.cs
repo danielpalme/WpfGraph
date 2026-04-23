@@ -1,9 +1,8 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
 
-namespace Palmmedia.WpfGraph.UI.ViewModels
+namespace Palmmedia.WpfGraph.Ui.ViewModels
 {
     /// <summary>
     /// Data attached to a <see cref="Palmmedia.WpfGraph.Core.Node&lt;TNodeType, TEdgeType&gt;"/>.
@@ -20,11 +19,6 @@ namespace Palmmedia.WpfGraph.UI.ViewModels
         /// </summary>
         private static int counter = 1;
 
-        /// <summary>
-        /// The text attached to the node.
-        /// </summary>
-        private string text;
-        
         /// <summary>
         /// The postion of the node.
         /// </summary>
@@ -52,7 +46,7 @@ namespace Palmmedia.WpfGraph.UI.ViewModels
         /// <summary>
         /// Occurs when the node has been moved.
         /// </summary>
-        public event EventHandler<NodeMovedEventArgs> NodeMoved;
+        public event EventHandler<NodeMovedEventArgs>? NodeMoved;
 
         /// <summary>
         /// Gets or sets the X position.
@@ -121,10 +115,10 @@ namespace Palmmedia.WpfGraph.UI.ViewModels
             private set
             {
                 this.position = value;
-                this.OnPropertyChanged("XPosition");
-                this.OnPropertyChanged("YPosition");
-                this.OnPropertyChanged("ZPosition");
-                this.OnPropertyChanged("Position");
+                this.OnPropertyChanged(nameof(this.XPosition));
+                this.OnPropertyChanged(nameof(this.YPosition));
+                this.OnPropertyChanged(nameof(this.ZPosition));
+                this.OnPropertyChanged(nameof(this.Position));
             }
         }
 
@@ -135,13 +129,13 @@ namespace Palmmedia.WpfGraph.UI.ViewModels
         {
             get
             {
-                return this.text;
+                return field;
             }
 
             set
             {
-                this.text = value;
-                this.OnPropertyChanged("Text");
+                field = value;
+                this.OnPropertyChanged(nameof(this.Text));
             }
         }
 
@@ -170,7 +164,7 @@ namespace Palmmedia.WpfGraph.UI.ViewModels
         /// <param name="targetPosition">The target position.</param>
         /// <param name="duration">The duration of the animation.</param>
         /// <param name="callback">The <see cref="Action">callback</see> executed at the end of the animation.</param>
-        public void Move(Point3D targetPosition, double duration, Action callback)
+        public void Move(Point3D targetPosition, double duration, Action? callback)
         {
             var nodeMovedEventArgs = new NodeMovedEventArgs(duration, this.Position, targetPosition, callback);
 
@@ -179,10 +173,10 @@ namespace Palmmedia.WpfGraph.UI.ViewModels
         }
 
         /// <summary>
-        /// Returns a <see cref="System.String"/> that represents this instance.
+        /// Returns a <see cref="string"/> that represents this instance.
         /// </summary>
         /// <returns>
-        /// A <see cref="System.String"/> that represents this instance.
+        /// A <see cref="string"/> that represents this instance.
         /// </returns>
         public override string ToString()
         {
@@ -192,15 +186,12 @@ namespace Palmmedia.WpfGraph.UI.ViewModels
         /// <summary>
         /// Raises the <see cref="E:NodeMoved"/> event.
         /// </summary>
-        /// <param name="args">The <see cref="Palmmedia.WpfGraph.UI.ViewModels.NodeMovedEventArgs"/> instance containing the event data.</param>
+        /// <param name="args">The <see cref="Palmmedia.WpfGraph.Ui.ViewModels.NodeMovedEventArgs"/> instance containing the event data.</param>
         protected virtual void OnNodeMoved(NodeMovedEventArgs args)
         {
             Logger.Debug("Moved node from: " + args.OldPosition + " to: " + args.NewPosition);
 
-            if (this.NodeMoved != null)
-            {
-                this.NodeMoved(this, args);
-            }
+            this.NodeMoved?.Invoke(this, args);
         }
     }
 }

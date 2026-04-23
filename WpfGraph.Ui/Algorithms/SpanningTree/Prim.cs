@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Media;
-using Palmmedia.WpfGraph.Common;
+﻿using System.Windows.Media;
 using Palmmedia.WpfGraph.Core;
-using Palmmedia.WpfGraph.UI.Properties;
-using Palmmedia.WpfGraph.UI.ViewModels;
+using Palmmedia.WpfGraph.Ui.Properties;
+using Palmmedia.WpfGraph.Ui.ViewModels;
 
-namespace Palmmedia.WpfGraph.UI.Algorithms.SpanningTree
+namespace Palmmedia.WpfGraph.Ui.Algorithms.SpanningTree
 {
     /// <summary>
     /// The Prim algorithm.
@@ -23,7 +19,7 @@ namespace Palmmedia.WpfGraph.UI.Algorithms.SpanningTree
         /// <summary>
         /// The graph.
         /// </summary>
-        private IGraph<NodeData, EdgeData> graph;
+        private IGraph<NodeData, EdgeData>? graph;
 
         /// <summary>
         /// Total number of nodes in graph.
@@ -33,12 +29,12 @@ namespace Palmmedia.WpfGraph.UI.Algorithms.SpanningTree
         /// <summary>
         /// The visited nodes.
         /// </summary>
-        private HashSet<Node<NodeData, EdgeData>> visitedNodes = new HashSet<Node<NodeData, EdgeData>>();
+        private HashSet<Node<NodeData, EdgeData>> visitedNodes = [];
 
         /// <summary>
         /// The edges that are not processed yet.
         /// </summary>
-        private HashSet<Edge<NodeData, EdgeData>> unprocessedEdges;
+        private HashSet<Edge<NodeData, EdgeData>>? unprocessedEdges;
 
         /// <summary>
         /// Gets the name of the algorithm.
@@ -78,7 +74,7 @@ namespace Palmmedia.WpfGraph.UI.Algorithms.SpanningTree
             }
 
             // Weight of edges must be positive
-            if (graph.Edges.Count(e => e.Data.Weight <= 0) > 0)
+            if (graph.Edges.Count(e => e.Data!.Weight <= 0) > 0)
             {
                 throw new InvalidOperationException(GraphAlgorithmErrors.EdgeWeightsNegative);
             }
@@ -110,16 +106,16 @@ namespace Palmmedia.WpfGraph.UI.Algorithms.SpanningTree
         {
             if (this.visitedNodes.Count < this.totalNumberOfNodes)
             {
-                var edge = this.unprocessedEdges.Where(e => (this.visitedNodes.Contains(e.FirstNode) && !this.visitedNodes.Contains(e.SecondNode)) 
-                    || (!this.visitedNodes.Contains(e.FirstNode) && this.visitedNodes.Contains(e.SecondNode))).OrderBy(e => e.Data.Weight).First();
+                var edge = this.unprocessedEdges!.Where(e => (this.visitedNodes.Contains(e.FirstNode) && !this.visitedNodes.Contains(e.SecondNode))
+                    || (!this.visitedNodes.Contains(e.FirstNode) && this.visitedNodes.Contains(e.SecondNode))).OrderBy(e => e.Data!.Weight).First();
 
                 edge.Blink(() => this.MarkEdge(edge));
             }
             else
             {
-                foreach (var edge in this.unprocessedEdges)
+                foreach (var edge in this.unprocessedEdges!)
                 {
-                    this.graph.Remove(edge);
+                    this.graph!.Remove(edge);
                 }
             }
         }
@@ -132,7 +128,7 @@ namespace Palmmedia.WpfGraph.UI.Algorithms.SpanningTree
         {
             this.visitedNodes.Add(edge.FirstNode);
             this.visitedNodes.Add(edge.SecondNode);
-            this.unprocessedEdges.Remove(edge);
+            this.unprocessedEdges!.Remove(edge);
 
             edge.ChangeColor(Colors.SteelBlue);
             edge.FirstNode.ChangeColor(Colors.SteelBlue);

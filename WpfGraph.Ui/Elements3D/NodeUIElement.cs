@@ -1,14 +1,12 @@
-﻿using System;
-using System.Windows.Media;
+﻿using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Media3D;
-using Palmmedia.WpfGraph.Common;
 using Palmmedia.WpfGraph.Core;
-using Palmmedia.WpfGraph.UI.Elements3D.Tesselate;
-using Palmmedia.WpfGraph.UI.Interaction;
-using Palmmedia.WpfGraph.UI.ViewModels;
+using Palmmedia.WpfGraph.Ui.Elements3D.Tesselate;
+using Palmmedia.WpfGraph.Ui.Interaction;
+using Palmmedia.WpfGraph.Ui.ViewModels;
 
-namespace Palmmedia.WpfGraph.UI.Elements3D
+namespace Palmmedia.WpfGraph.Ui.Elements3D
 {
     /// <summary>
     /// Represents a node.
@@ -18,7 +16,7 @@ namespace Palmmedia.WpfGraph.UI.Elements3D
         /// <summary>
         /// <see cref="MeshGeometry3D"/> used as prototype.
         /// </summary>
-        private static readonly MeshGeometry3D spherePrototype = SphereTesselate.Create(20, 20, NODERADIUS);
+        private static readonly MeshGeometry3D SpherePrototype = SphereTesselate.Create(20, 20, NODERADIUS);
 
         /// <summary>
         /// The time a node was clicked for the last time.
@@ -31,10 +29,10 @@ namespace Palmmedia.WpfGraph.UI.Elements3D
         /// <param name="graphProvider">The <see cref="IGraphProvider"/>.</param>
         /// <param name="node">The node.</param>
         public NodeUIElement(IGraphProvider graphProvider, Node<NodeData, EdgeData> node)
-            : base(graphProvider, node.Data)
+            : base(graphProvider, node.Data!)
         {
             this.Node = node;
-            this.TranslateTransform = new TranslateTransform3D((Vector3D)node.Data.Position);
+            this.TranslateTransform = new TranslateTransform3D((Vector3D)node.Data!.Position);
             this.Transform = this.TranslateTransform;
 
             node.Data.NodeMoved += new System.EventHandler<NodeMovedEventArgs>(this.NodeMoved);
@@ -54,28 +52,34 @@ namespace Palmmedia.WpfGraph.UI.Elements3D
         /// Executed when node is moved.
         /// </summary>
         /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="Palmmedia.WpfGraph.UI.ViewModels.NodeMovedEventArgs"/> instance containing the event data.</param>
-        protected virtual void NodeMoved(object sender, NodeMovedEventArgs e)
+        /// <param name="e">The <see cref="Palmmedia.WpfGraph.Ui.ViewModels.NodeMovedEventArgs"/> instance containing the event data.</param>
+        protected virtual void NodeMoved(object? sender, NodeMovedEventArgs e)
         {
             if (e.Duration > 0)
             {
-                var transAnimationX = new DoubleAnimation();
-                transAnimationX.Duration = TimeSpan.FromMilliseconds(e.Duration);
-                transAnimationX.From = this.TranslateTransform.OffsetX;
-                transAnimationX.To = e.NewPosition.X;
-                transAnimationX.FillBehavior = FillBehavior.Stop;
+                var transAnimationX = new DoubleAnimation
+                {
+                    Duration = TimeSpan.FromMilliseconds(e.Duration),
+                    From = this.TranslateTransform.OffsetX,
+                    To = e.NewPosition.X,
+                    FillBehavior = FillBehavior.Stop
+                };
 
-                var transAnimationY = new DoubleAnimation();
-                transAnimationY.Duration = TimeSpan.FromMilliseconds(e.Duration);
-                transAnimationY.From = this.TranslateTransform.OffsetY;
-                transAnimationY.To = e.NewPosition.Y;
-                transAnimationY.FillBehavior = FillBehavior.Stop;
+                var transAnimationY = new DoubleAnimation
+                {
+                    Duration = TimeSpan.FromMilliseconds(e.Duration),
+                    From = this.TranslateTransform.OffsetY,
+                    To = e.NewPosition.Y,
+                    FillBehavior = FillBehavior.Stop
+                };
 
-                var transAnimationZ = new DoubleAnimation();
-                transAnimationZ.Duration = TimeSpan.FromMilliseconds(e.Duration);
-                transAnimationZ.From = this.TranslateTransform.OffsetZ;
-                transAnimationZ.To = e.NewPosition.Z;
-                transAnimationZ.FillBehavior = FillBehavior.Stop;
+                var transAnimationZ = new DoubleAnimation
+                {
+                    Duration = TimeSpan.FromMilliseconds(e.Duration),
+                    From = this.TranslateTransform.OffsetZ,
+                    To = e.NewPosition.Z,
+                    FillBehavior = FillBehavior.Stop
+                };
 
                 transAnimationZ.Completed += new EventHandler((s, a) => this.ApplyPosition(e.NewPosition, e.Callback));
 
@@ -127,7 +131,7 @@ namespace Palmmedia.WpfGraph.UI.Elements3D
         {
             base.OnMouseRightButtonDown(e);
 
-            this.Node.Data.Marked = !this.Node.Data.Marked;
+            this.Node.Data!.Marked = !this.Node.Data.Marked;
         }
 
         /// <summary>
@@ -135,9 +139,9 @@ namespace Palmmedia.WpfGraph.UI.Elements3D
         /// </summary>
         protected override void OnUpdateModel()
         {
-            Brush brush = null;
+            Brush? brush;
 
-            if (this.Node.Data.Marked)
+            if (this.Node.Data!.Marked)
             {
                 brush = new RadialGradientBrush(Colors.Orange, this.Color);
             }
@@ -147,7 +151,7 @@ namespace Palmmedia.WpfGraph.UI.Elements3D
             }
 
             var model = new GeometryModel3D(
-                spherePrototype,
+                SpherePrototype,
                 new DiffuseMaterial(brush));
 
             this.Model = model;
@@ -158,16 +162,13 @@ namespace Palmmedia.WpfGraph.UI.Elements3D
         /// </summary>
         /// <param name="position">The position.</param>
         /// <param name="callback">The callback.</param>
-        private void ApplyPosition(Point3D position, Action callback)
+        private void ApplyPosition(Point3D position, Action? callback)
         {
             this.TranslateTransform.OffsetX = position.X;
             this.TranslateTransform.OffsetY = position.Y;
             this.TranslateTransform.OffsetZ = position.Z;
 
-            if (callback != null)
-            {
-                callback();
-            }
+            callback?.Invoke();
         }
     }
 }

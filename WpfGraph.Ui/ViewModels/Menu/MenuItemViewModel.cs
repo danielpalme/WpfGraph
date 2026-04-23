@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
 
-namespace Palmmedia.WpfGraph.UI.ViewModels.Menu
+namespace Palmmedia.WpfGraph.Ui.ViewModels.Menu
 {
     /// <summary>
     /// Base class for menu items.
@@ -11,32 +11,32 @@ namespace Palmmedia.WpfGraph.UI.ViewModels.Menu
         /// <summary>
         /// The child menu items.
         /// </summary>
-        private ObservableCollection<MenuItemViewModel> childMenuItems;
+        private readonly ObservableCollection<MenuItemViewModel> childMenuItems;
 
         /// <summary>
         /// The header.
         /// </summary>
-        private string header;
+        private string? header;
 
         /// <summary>
         /// The command.
         /// </summary>
-        private ICommand command;
+        private ICommand? command;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MenuItemViewModel"/> class.
         /// </summary>
         /// <param name="parentViewModel">The parent view model.</param>
-        public MenuItemViewModel(MenuItemViewModel parentViewModel)
+        public MenuItemViewModel(MenuItemViewModel? parentViewModel)
         {
             this.ParentViewModel = parentViewModel;
-            this.childMenuItems = new ObservableCollection<MenuItemViewModel>();
+            this.childMenuItems = [];
         }
 
         /// <summary>
         /// Gets or sets the parent view model.
         /// </summary>
-        public MenuItemViewModel ParentViewModel { get; set; }
+        public MenuItemViewModel? ParentViewModel { get; set; }
 
         /// <summary>
         /// Gets the child menu items.
@@ -52,7 +52,7 @@ namespace Palmmedia.WpfGraph.UI.ViewModels.Menu
         /// <summary>
         /// Gets or sets the header.
         /// </summary>
-        public string Header
+        public string? Header
         {
             get
             {
@@ -62,14 +62,14 @@ namespace Palmmedia.WpfGraph.UI.ViewModels.Menu
             set
             {
                 this.header = value;
-                this.OnPropertyChanged("Header");
+                this.OnPropertyChanged(nameof(this.Header));
             }
         }
 
         /// <summary>
         /// Gets or sets the command.
         /// </summary>
-        public ICommand Command
+        public ICommand? Command
         {
             get
             {
@@ -79,7 +79,7 @@ namespace Palmmedia.WpfGraph.UI.ViewModels.Menu
             set
             {
                 this.command = value;
-                this.OnPropertyChanged("Command");
+                this.OnPropertyChanged(nameof(this.Command));
             }
         }
     }

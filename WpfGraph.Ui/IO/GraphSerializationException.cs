@@ -1,48 +1,35 @@
-﻿using System;
-using System.Runtime.Serialization;
-
-namespace Palmmedia.WpfGraph.UI.IO
-{   
+﻿namespace Palmmedia.WpfGraph.Ui.IO
+{
     /// <summary>
     /// Occurs when graph serialization fails.
     /// </summary>
-    [Serializable] 
+    [Serializable]
     public class GraphSerializationException : Exception
     {
-		/// <summary>
+        /// <summary>
         /// Initializes a new instance of the <see cref="GraphSerializationException"/> class.
-		/// </summary>
+        /// </summary>
         public GraphSerializationException()
             : base()
         {
         }
 
-		/// <summary>
+        /// <summary>
         /// Initializes a new instance of the <see cref="GraphSerializationException"/> class.
-		/// </summary>
-		/// <param name="message">The message.</param>
+        /// </summary>
+        /// <param name="message">The message.</param>
         public GraphSerializationException(string message)
             : base(message)
         {
         }
 
-		/// <summary>
+        /// <summary>
         /// Initializes a new instance of the <see cref="GraphSerializationException"/> class.
-		/// </summary>
-		/// <param name="message">The message.</param>
-		/// <param name="innerException">The inner exception.</param>
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <param name="innerException">The inner exception.</param>
         public GraphSerializationException(string message, Exception innerException)
             : base(message, innerException)
-        {
-        }
-
-		/// <summary>
-        /// Initializes a new instance of the <see cref="GraphSerializationException"/> class.
-		/// </summary>
-		/// <param name="serializationInfo">The serialization info.</param>
-		/// <param name="streamingContext">The streaming context.</param>
-        protected GraphSerializationException(SerializationInfo serializationInfo, StreamingContext streamingContext)
-            : base(serializationInfo, streamingContext)
         {
         }
     }

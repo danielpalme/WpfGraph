@@ -1,10 +1,9 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 using Palmmedia.WpfGraph.Common;
-using Palmmedia.WpfGraph.UI.Algorithms;
-using Palmmedia.WpfGraph.UI.Interaction;
+using Palmmedia.WpfGraph.Ui.Algorithms;
+using Palmmedia.WpfGraph.Ui.Interaction;
 
-namespace Palmmedia.WpfGraph.UI.ViewModels.Menu
+namespace Palmmedia.WpfGraph.Ui.ViewModels.Menu
 {
     /// <summary>
     /// MenuItem showing an <see cref="IGraphAlgorithm"/> for execution.
@@ -14,12 +13,12 @@ namespace Palmmedia.WpfGraph.UI.ViewModels.Menu
         /// <summary>
         /// The <see cref="IGraphProvider"/>.
         /// </summary>
-        private IGraphProvider graphProvider;
+        private readonly IGraphProvider graphProvider;
 
         /// <summary>
         /// The <see cref="IMessageHandler"/>.
         /// </summary>
-        private IMessageHandler messageHandler;
+        private readonly IMessageHandler messageHandler;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="IAlgorithmMenuItemViewModel"/> class.
@@ -28,7 +27,7 @@ namespace Palmmedia.WpfGraph.UI.ViewModels.Menu
         /// <param name="messageHandler">The <see cref="IMessageHandler"/>.</param>
         /// <param name="parentViewModel">The parent view model.</param>
         /// <param name="algorithm">The <see cref="IGraphAlgorithm"/>.</param>
-        public IAlgorithmMenuItemViewModel(IGraphProvider graphProvider, IMessageHandler messageHandler, MenuItemViewModel parentViewModel, IGraphAlgorithm algorithm)
+        public IAlgorithmMenuItemViewModel(IGraphProvider graphProvider, IMessageHandler messageHandler, MenuItemViewModel? parentViewModel, IGraphAlgorithm algorithm)
             : base(parentViewModel)
         {
             this.graphProvider = graphProvider;
@@ -50,8 +49,8 @@ namespace Palmmedia.WpfGraph.UI.ViewModels.Menu
             }
             catch (InvalidOperationException ex)
             {
-                this.messageHandler.ShowError(string.Format(CultureInfo.CurrentCulture, Palmmedia.WpfGraph.UI.Properties.Resources.InvalidGraph, ex.Message));
-            }            
+                this.messageHandler.ShowError(string.Format(CultureInfo.CurrentCulture, Palmmedia.WpfGraph.Ui.Properties.Resources.InvalidGraph, ex.Message));
+            }
         }
     }
 }

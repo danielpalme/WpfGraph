@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Palmmedia.WpfGraph.Core
+﻿namespace Palmmedia.WpfGraph.Core
 {
     /// <summary>
     /// Represents an edge.
@@ -12,7 +10,7 @@ namespace Palmmedia.WpfGraph.Core
         /// <summary>
         /// The data attached to the edge.
         /// </summary>
-        private TEdgeType data;
+        private TEdgeType? data;
 
         /// <summary>
         /// The edge direction.
@@ -26,8 +24,8 @@ namespace Palmmedia.WpfGraph.Core
         /// <param name="secondNode">The second node.</param>
         public Edge(Node<TNodeType, TEdgeType> firstNode, Node<TNodeType, TEdgeType> secondNode)
         {
-            this.FirstNode = firstNode ?? throw new ArgumentNullException("firstNode");
-            this.SecondNode = secondNode ?? throw new ArgumentNullException("secondNode");
+            this.FirstNode = firstNode ?? throw new ArgumentNullException(nameof(firstNode));
+            this.SecondNode = secondNode ?? throw new ArgumentNullException(nameof(secondNode));
         }
 
         /// <summary>
@@ -70,12 +68,12 @@ namespace Palmmedia.WpfGraph.Core
         /// <summary>
         /// Occurs when the data has been changed.
         /// </summary>
-        public event EventHandler<EventArgs> DataChanged;
+        public event EventHandler<EventArgs>? DataChanged;
 
         /// <summary>
         /// Occurs when the edge direction has been changed.
         /// </summary>
-        public event EventHandler<EventArgs> EdgeDirectionChanged;
+        public event EventHandler<EventArgs>? EdgeDirectionChanged;
 
         /// <summary>
         /// Gets the first <see cref="Node&lt;TNodeType, TEdgeType&gt;"/>.
@@ -107,7 +105,7 @@ namespace Palmmedia.WpfGraph.Core
         /// <summary>
         /// Gets or sets the data attached to the <see cref="Edge&lt;TNodeType, TEdgeType&gt;"/>.
         /// </summary>
-        public virtual TEdgeType Data
+        public virtual TEdgeType? Data
         {
             get
             {
@@ -127,7 +125,7 @@ namespace Palmmedia.WpfGraph.Core
         /// <returns>
         /// A <see cref="System.String"/> that represents this instance.
         /// </returns>
-        public override string ToString()
+        public override string? ToString()
         {
             return this.Data == null ? base.ToString() : this.Data.ToString();
         }
@@ -138,10 +136,7 @@ namespace Palmmedia.WpfGraph.Core
         /// <param name="args">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected virtual void OnDataChanged(EventArgs args)
         {
-            if (this.DataChanged != null)
-            {
-                this.DataChanged(this, args);
-            }
+            this.DataChanged?.Invoke(this, args);
         }
 
         /// <summary>
@@ -150,10 +145,7 @@ namespace Palmmedia.WpfGraph.Core
         /// <param name="args">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected virtual void OnEdgeDirectionChanged(EventArgs args)
         {
-            if (this.EdgeDirectionChanged != null)
-            {
-                this.EdgeDirectionChanged(this, args);
-            }
+            this.EdgeDirectionChanged?.Invoke(this, args);
         }
     }
 }

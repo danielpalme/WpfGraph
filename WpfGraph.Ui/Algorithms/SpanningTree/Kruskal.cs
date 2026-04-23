@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Media;
+﻿using System.Windows.Media;
 using Palmmedia.WpfGraph.Common;
 using Palmmedia.WpfGraph.Core;
-using Palmmedia.WpfGraph.UI.Properties;
-using Palmmedia.WpfGraph.UI.ViewModels;
+using Palmmedia.WpfGraph.Ui.Properties;
+using Palmmedia.WpfGraph.Ui.ViewModels;
 
-namespace Palmmedia.WpfGraph.UI.Algorithms.SpanningTree
+namespace Palmmedia.WpfGraph.Ui.Algorithms.SpanningTree
 {
     /// <summary>
     /// The Kruskal algorithm.
@@ -23,17 +20,17 @@ namespace Palmmedia.WpfGraph.UI.Algorithms.SpanningTree
         /// <summary>
         /// The graph.
         /// </summary>
-        private IGraph<NodeData, EdgeData> graph;
+        private IGraph<NodeData, EdgeData>? graph;
 
         /// <summary>
         /// The edges of the spanning tree.
         /// </summary>
-        private HashSet<Edge<NodeData, EdgeData>> spanningTreeEdges = new HashSet<Edge<NodeData, EdgeData>>();
+        private HashSet<Edge<NodeData, EdgeData>> spanningTreeEdges = [];
 
         /// <summary>
         /// The edges that are not processed yet.
         /// </summary>
-        private Queue<Edge<NodeData, EdgeData>> edgeQueue;
+        private Queue<Edge<NodeData, EdgeData>>? edgeQueue;
 
         /// <summary>
         /// Gets the name of the algorithm.
@@ -73,7 +70,7 @@ namespace Palmmedia.WpfGraph.UI.Algorithms.SpanningTree
             }
 
             // Weight of edges must be positive
-            if (graph.Edges.Count(e => e.Data.Weight <= 0) > 0)
+            if (graph.Edges.Count(e => e.Data!.Weight <= 0) > 0)
             {
                 throw new InvalidOperationException(GraphAlgorithmErrors.EdgeWeightsNegative);
             }
@@ -87,8 +84,8 @@ namespace Palmmedia.WpfGraph.UI.Algorithms.SpanningTree
             this.graph = graph;
 
             // Add edges to queue (sorted by weight)
-            this.edgeQueue = graph.Edges.OrderBy(e => e.Data.Weight).ToQueue();
-            
+            this.edgeQueue = graph.Edges.OrderBy(e => e.Data!.Weight).ToQueue();
+
             this.ProcessNextEdge();
         }
 
@@ -97,7 +94,7 @@ namespace Palmmedia.WpfGraph.UI.Algorithms.SpanningTree
         /// </summary>
         private void ProcessNextEdge()
         {
-            if (this.edgeQueue.Count > 0)
+            if (this.edgeQueue!.Count > 0)
             {
                 var edge = this.edgeQueue.Dequeue();
                 edge.Blink(() => this.RemoveOrKeepEdge(edge));
@@ -119,7 +116,7 @@ namespace Palmmedia.WpfGraph.UI.Algorithms.SpanningTree
             }
             else
             {
-                this.graph.Remove(edge);
+                this.graph!.Remove(edge);
             }
 
             this.ProcessNextEdge();

@@ -1,38 +1,37 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Palmmedia.WpfGraph.Core;
-
-namespace Palmmedia.WpfGraph.CoreTest
+﻿namespace Palmmedia.WpfGraph.Core.Test
 {
-    [TestClass]
     public class NodeTest
     {
-        [TestMethod]
+        [Fact]
         public void ConstructorSetsData()
-        {            
+        {
             var obj = new object();
 
             var node = new Node<object, object>();
-            Assert.IsNull(node.Data, "Data invalid.");
-            
+            Assert.Null(node.Data);
+
             node = new Node<object, object>(obj);
-            Assert.AreEqual(obj, node.Data, "Data invalid.");
+            Assert.Equal(obj, node.Data);
         }
 
-        [TestMethod]
+        [Fact]
         public void Data_RaisesEvent()
         {
             var node = new Node<object, object>();
             var obj = new object();
-            EventArgs args = null;
+            EventArgs? args = null;
             int counter = 0;
-            node.DataChanged += new EventHandler<EventArgs>((sender, e) => { counter++; args = e; });
+            node.DataChanged += new EventHandler<EventArgs>((sender, e) =>
+            {
+                counter++;
+                args = e;
+            });
 
             node.Data = obj;
 
-            Assert.AreEqual(1, counter, "Event not raised.");
-            Assert.IsNotNull(args, "EventArgs must not be null.");
-            Assert.AreEqual(obj, node.Data, "Data invalid.");
+            Assert.Equal(1, counter);
+            Assert.NotNull(args);
+            Assert.Equal(obj, node.Data);
         }
     }
 }

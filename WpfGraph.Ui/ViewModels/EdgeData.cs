@@ -1,6 +1,6 @@
 ﻿using System.Windows.Media;
 
-namespace Palmmedia.WpfGraph.UI.ViewModels
+namespace Palmmedia.WpfGraph.Ui.ViewModels
 {
     /// <summary>
     /// Data attached to an <see cref="Palmmedia.WpfGraph.Core.Edge&lt;TNodeType, TEdgeType&gt;"/>.
@@ -33,15 +33,15 @@ namespace Palmmedia.WpfGraph.UI.ViewModels
             set
             {
                 this.weight = value;
-                this.OnPropertyChanged("Weight");
+                this.OnPropertyChanged(nameof(this.Weight));
             }
         }
 
         /// <summary>
-        /// Returns a <see cref="System.String"/> that represents this instance.
+        /// Returns a <see cref="string"/> that represents this instance.
         /// </summary>
         /// <returns>
-        /// A <see cref="System.String"/> that represents this instance.
+        /// A <see cref="string"/> that represents this instance.
         /// </returns>
         public override string ToString()
         {

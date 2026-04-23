@@ -1,7 +1,6 @@
-﻿using System;
-using System.Windows.Media.Media3D;
+﻿using System.Windows.Media.Media3D;
 
-namespace Palmmedia.WpfGraph.UI.ViewModels
+namespace Palmmedia.WpfGraph.Ui.ViewModels
 {
     /// <summary>
     /// Provides data for the <see cref="E:NodeData.NodeMoved"/> event.
@@ -15,7 +14,7 @@ namespace Palmmedia.WpfGraph.UI.ViewModels
         /// <param name="oldPosition">The position before moving.</param>
         /// <param name="newPosition">The position after moving.</param>
         /// <param name="callback">The <see cref="Action">callback</see> executed at the end of an animation.</param>
-        public NodeMovedEventArgs(double duration, Point3D oldPosition, Point3D newPosition, Action callback)
+        public NodeMovedEventArgs(double duration, Point3D oldPosition, Point3D newPosition, Action? callback)
             : base(duration, callback)
         {
             this.OldPosition = oldPosition;

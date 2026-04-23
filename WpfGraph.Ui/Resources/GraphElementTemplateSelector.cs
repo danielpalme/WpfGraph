@@ -1,9 +1,9 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using Palmmedia.WpfGraph.Core;
-using Palmmedia.WpfGraph.UI.ViewModels;
+using Palmmedia.WpfGraph.Ui.ViewModels;
 
-namespace Palmmedia.WpfGraph.UI.Resources
+namespace Palmmedia.WpfGraph.Ui.Resources
 {
     /// <summary>
     /// Helper class to select <see cref="T:System.Windows.DataTemplate"/> according to currently selected node or edge.
@@ -19,7 +19,7 @@ namespace Palmmedia.WpfGraph.UI.Resources
         /// <returns>
         /// Returns a <see cref="T:System.Windows.DataTemplate"/> or null. The default value is null.
         /// </returns>
-        public override DataTemplate SelectTemplate(object item, DependencyObject container)
+        public override DataTemplate? SelectTemplate(object item, DependencyObject container)
         {
             if (item == null)
             {

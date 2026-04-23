@@ -1,23 +1,22 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Media3D;
 using Palmmedia.WpfGraph.Core;
-using Palmmedia.WpfGraph.UI.Elements3D.Tesselate;
-using Palmmedia.WpfGraph.UI.Interaction;
-using Palmmedia.WpfGraph.UI.ViewModels;
+using Palmmedia.WpfGraph.Ui.Elements3D.Tesselate;
+using Palmmedia.WpfGraph.Ui.Interaction;
+using Palmmedia.WpfGraph.Ui.ViewModels;
 
-namespace Palmmedia.WpfGraph.UI
+namespace Palmmedia.WpfGraph.Ui
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for MainWindow.xaml.
     /// </summary>
     public partial class MainWindow : Window
     {
         /// <summary>
         /// The IGraphProvider.
         /// </summary>
-        private IGraphProvider graphProvider;
+        private readonly IGraphProvider graphProvider;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MainWindow"/> class.
@@ -77,7 +76,7 @@ namespace Palmmedia.WpfGraph.UI
         /// <param name="e">The <see cref="System.Windows.Input.MouseButtonEventArgs"/> instance containing the event data.</param>
         private void OnViewportMouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            // Calulate position of click in coordinate system of viewport 
+            // Calulate position of click in coordinate system of viewport
             var point = e.GetPosition(this.viewport3D);
             point.Y = -point.Y;
             point.Offset(-this.viewport3D.ActualWidth / 2, this.viewport3D.ActualHeight / 2);

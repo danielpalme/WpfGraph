@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Palmmedia.WpfGraph.Core
+﻿namespace Palmmedia.WpfGraph.Core
 {
     /// <summary>
     /// Implementation of <see cref="IGraph&lt;TNodeType, TEdgeType&gt;"/> using hashsets to manage nodes and edges of the graph.<br/>
@@ -18,14 +14,14 @@ namespace Palmmedia.WpfGraph.Core
         /// </summary>
         public Graph()
         {
-            this.EdgeSet = new HashSet<Edge<TNodeType, TEdgeType>>();
-            this.NodeSet = new HashSet<Node<TNodeType, TEdgeType>>();
+            this.EdgeSet = [];
+            this.NodeSet = [];
         }
 
         /// <summary>
         /// Gets the <see cref="Edge&lt;TNodeType, TEdgeType&gt;">edges</see>.
         /// </summary>
-        /// <value></value>
+        /// <value>The edges.</value>
         public IEnumerable<Edge<TNodeType, TEdgeType>> Edges
         {
             get
@@ -37,7 +33,7 @@ namespace Palmmedia.WpfGraph.Core
         /// <summary>
         /// Gets the <see cref="Node&lt;TNodeType, TEdgeType&gt;">nodes</see>.
         /// </summary>
-        /// <value></value>
+        /// <value>The nodes.</value>
         public IEnumerable<Node<TNodeType, TEdgeType>> Nodes
         {
             get
@@ -62,10 +58,7 @@ namespace Palmmedia.WpfGraph.Core
         /// <param name="edge">The <see cref="Edge&lt;TNodeType, TEdgeType&gt;"/> to add.</param>
         public virtual void Add(Edge<TNodeType, TEdgeType> edge)
         {
-            if (edge == null)
-            {
-                throw new ArgumentNullException("edge");
-            }
+            ArgumentNullException.ThrowIfNull(edge);
 
             if (!this.NodeSet.Contains(edge.FirstNode) || !this.NodeSet.Contains(edge.SecondNode))
             {
@@ -83,10 +76,7 @@ namespace Palmmedia.WpfGraph.Core
         /// <param name="node">The <see cref="Node&lt;TNodeType, TEdgeType&gt;"/> to add.</param>
         public virtual void Add(Node<TNodeType, TEdgeType> node)
         {
-            if (node == null)
-            {
-                throw new ArgumentNullException("node");
-            }
+            ArgumentNullException.ThrowIfNull(node);
 
             node.Graph = this;
             this.NodeSet.Add(node);
@@ -99,10 +89,7 @@ namespace Palmmedia.WpfGraph.Core
         /// <param name="edge">The <see cref="Edge&lt;TNodeType, TEdgeType&gt;"/> to remove.</param>
         public virtual void Remove(Edge<TNodeType, TEdgeType> edge)
         {
-            if (edge == null)
-            {
-                throw new ArgumentNullException("edge");
-            }
+            ArgumentNullException.ThrowIfNull(edge);
 
             this.EdgeSet.Remove(edge);
             this.OnEdgeRemoved(new EdgeEventArgs<TNodeType, TEdgeType>(edge));
@@ -114,10 +101,7 @@ namespace Palmmedia.WpfGraph.Core
         /// <param name="node">The <see cref="Node&lt;TNodeType, TEdgeType&gt;"/> to remove.</param>
         public virtual void Remove(Node<TNodeType, TEdgeType> node)
         {
-            if (node == null)
-            {
-                throw new ArgumentNullException("node");
-            }
+            ArgumentNullException.ThrowIfNull(node);
 
             foreach (var edge in this.EdgeSet.Where(e => e.FirstNode == node || e.SecondNode == node).ToArray())
             {
@@ -153,10 +137,7 @@ namespace Palmmedia.WpfGraph.Core
         /// </returns>
         public virtual IEnumerable<Edge<TNodeType, TEdgeType>> GetEdgesOfNode(Node<TNodeType, TEdgeType> node)
         {
-            if (node == null)
-            {
-                throw new ArgumentNullException("node");
-            }
+            ArgumentNullException.ThrowIfNull(node);
 
             return this.EdgeSet.Where(e => e.FirstNode == node || e.SecondNode == node);
         }
@@ -170,13 +151,10 @@ namespace Palmmedia.WpfGraph.Core
         /// </returns>
         public virtual IEnumerable<Edge<TNodeType, TEdgeType>> GetIncomingEdgesOfNode(Node<TNodeType, TEdgeType> node)
         {
-            if (node == null)
-            {
-                throw new ArgumentNullException("node");
-            }
+            ArgumentNullException.ThrowIfNull(node);
 
             return this.EdgeSet.Where(e => (e.FirstNode == node && e.EdgeDirection != EdgeDirection.First2Second)
-                || (e.SecondNode == node && e.EdgeDirection != EdgeDirection.Second2First));           
+                || (e.SecondNode == node && e.EdgeDirection != EdgeDirection.Second2First));
         }
 
         /// <summary>
@@ -188,13 +166,10 @@ namespace Palmmedia.WpfGraph.Core
         /// </returns>
         public virtual IEnumerable<Edge<TNodeType, TEdgeType>> GetOutgoingEdgesOfNode(Node<TNodeType, TEdgeType> node)
         {
-            if (node == null)
-            {
-                throw new ArgumentNullException("node");
-            }
-            
+            ArgumentNullException.ThrowIfNull(node);
+
             return this.EdgeSet.Where(e => (e.FirstNode == node && e.EdgeDirection != EdgeDirection.Second2First)
-                || (e.SecondNode == node && e.EdgeDirection != EdgeDirection.First2Second));           
+                || (e.SecondNode == node && e.EdgeDirection != EdgeDirection.First2Second));
         }
 
         /// <summary>
@@ -206,10 +181,7 @@ namespace Palmmedia.WpfGraph.Core
         /// </returns>
         public virtual IEnumerable<Node<TNodeType, TEdgeType>> GetNeighborsOfNode(Node<TNodeType, TEdgeType> node)
         {
-            if (node == null)
-            {
-                throw new ArgumentNullException("node");
-            }
+            ArgumentNullException.ThrowIfNull(node);
 
             var edges = this.GetEdgesOfNode(node);
             var neighbors = edges.Select(e => e.FirstNode == node ? e.SecondNode : e.FirstNode);
@@ -225,10 +197,7 @@ namespace Palmmedia.WpfGraph.Core
         /// </returns>
         public virtual IEnumerable<Node<TNodeType, TEdgeType>> GetIncomingNeighborsOfNode(Node<TNodeType, TEdgeType> node)
         {
-            if (node == null)
-            {
-                throw new ArgumentNullException("node");
-            }
+            ArgumentNullException.ThrowIfNull(node);
 
             var edges = this.GetIncomingEdgesOfNode(node);
             var neighbors = edges.Select(e => e.FirstNode == node ? e.SecondNode : e.FirstNode);
@@ -244,10 +213,7 @@ namespace Palmmedia.WpfGraph.Core
         /// </returns>
         public virtual IEnumerable<Node<TNodeType, TEdgeType>> GetOutgoingNeighborsOfNode(Node<TNodeType, TEdgeType> node)
         {
-            if (node == null)
-            {
-                throw new ArgumentNullException("node");
-            }
+            ArgumentNullException.ThrowIfNull(node);
 
             var edges = this.GetOutgoingEdgesOfNode(node);
             var neighbors = edges.Select(e => e.FirstNode == node ? e.SecondNode : e.FirstNode);

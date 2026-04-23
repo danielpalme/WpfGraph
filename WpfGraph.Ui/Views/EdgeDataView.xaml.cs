@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace Palmmedia.WpfGraph.UI.Views
+namespace Palmmedia.WpfGraph.Ui.Views
 {
     /// <summary>
     /// Interaction logic for EdgeDataView.xaml

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Palmmedia.WpfGraph.Core
+﻿namespace Palmmedia.WpfGraph.Core
 {
     /// <summary>
     /// An element that belongs to an <see cref="IGraph&lt;TNodeType, TEdgeType&gt;"/>.
@@ -12,12 +10,12 @@ namespace Palmmedia.WpfGraph.Core
         /// <summary>
         /// The graph the <see cref="GraphElement&lt;TNodeType, TEdgeType&gt;"/> belongs to.
         /// </summary>
-        private IGraph<TNodeType, TEdgeType> graph;
+        private IGraph<TNodeType, TEdgeType>? graph;
 
         /// <summary>
         /// Gets or sets the graph the <see cref="GraphElement&lt;TNodeType, TEdgeType&gt;"/> belongs to.
         /// </summary>
-        protected internal IGraph<TNodeType, TEdgeType> Graph 
+        protected internal IGraph<TNodeType, TEdgeType> Graph
         {
             get
             {

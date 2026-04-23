@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Palmmedia.WpfGraph.Core
+﻿namespace Palmmedia.WpfGraph.Core
 {
     /// <summary>
     /// Represents a node.
@@ -13,7 +10,7 @@ namespace Palmmedia.WpfGraph.Core
         /// <summary>
         /// The data attached to the node.
         /// </summary>
-        private TNodeType data;
+        private TNodeType? data;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Node&lt;TNodeType, TEdgeType&gt;"/> class.
@@ -34,18 +31,18 @@ namespace Palmmedia.WpfGraph.Core
         /// <summary>
         /// Occurs when the data has been changed.
         /// </summary>
-        public event EventHandler<EventArgs> DataChanged;
+        public event EventHandler<EventArgs>? DataChanged;
 
         /// <summary>
         /// Gets or sets the data attached to the <see cref="Node&lt;TNodeType, TEdgeType&gt;"/>.
         /// </summary>
-        public virtual TNodeType Data 
-        { 
+        public virtual TNodeType? Data
+        {
             get
             {
                 return this.data;
             }
-                
+
             set
             {
                 this.data = value;
@@ -131,7 +128,7 @@ namespace Palmmedia.WpfGraph.Core
         /// <returns>
         /// A <see cref="System.String"/> that represents this instance.
         /// </returns>
-        public override string ToString()
+        public override string? ToString()
         {
             return this.Data == null ? base.ToString() : this.Data.ToString();
         }
@@ -142,10 +139,7 @@ namespace Palmmedia.WpfGraph.Core
         /// <param name="args">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected virtual void OnDataChanged(EventArgs args)
         {
-            if (this.DataChanged != null)
-            {
-                this.DataChanged(this, args);
-            }
+            this.DataChanged?.Invoke(this, args);
         }
     }
 }

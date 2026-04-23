@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Media.Media3D;
 
-namespace Palmmedia.WpfGraph.UI.Elements3D.Tesselate
+namespace Palmmedia.WpfGraph.Ui.Elements3D.Tesselate
 {
     /// <summary>
     /// Provides some mathcematical helper methods.

@@ -1,6 +1,6 @@
-﻿using System.Windows.Forms;
+﻿using Microsoft.Win32;
 
-namespace Palmmedia.WpfGraph.UI.Interaction
+namespace Palmmedia.WpfGraph.Ui.Interaction
 {
     /// <summary>
     /// <see cref="IFileSelector"/> implementation using dialogs.
@@ -13,13 +13,13 @@ namespace Palmmedia.WpfGraph.UI.Interaction
         /// <returns>The name of the file to open.</returns>
         public string GetFileNameForOpening()
         {
-            using (var openFileDialog = new OpenFileDialog())
+            var openFileDialog = new OpenFileDialog
             {
-                openFileDialog.Filter = "XML (*.xml)|*.xml";
-                openFileDialog.ShowDialog();
+                Filter = "XML (*.xml)|*.xml"
+            };
+            openFileDialog.ShowDialog();
 
-                return openFileDialog.FileName;
-            }            
+            return openFileDialog.FileName;
         }
 
         /// <summary>
@@ -28,13 +28,13 @@ namespace Palmmedia.WpfGraph.UI.Interaction
         /// <returns>The name of the file to save.</returns>
         public string GetFileNameForSaving()
         {
-            using (var saveFileDialog = new SaveFileDialog())
+            var saveFileDialog = new SaveFileDialog
             {
-                saveFileDialog.Filter = "XML (*.xml)|*.xml";
-                saveFileDialog.ShowDialog();
+                Filter = "XML (*.xml)|*.xml"
+            };
+            saveFileDialog.ShowDialog();
 
-                return saveFileDialog.FileName;
-            }
+            return saveFileDialog.FileName;
         }
     }
 }

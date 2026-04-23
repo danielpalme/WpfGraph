@@ -1,14 +1,14 @@
-﻿<Window x:Class="Palmmedia.WpfGraph.UI.MainWindow"
+﻿<Window x:Class="Palmmedia.WpfGraph.Ui.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:resx="clr-namespace:Palmmedia.WpfGraph.UI.Properties"
-        xmlns:res="clr-namespace:Palmmedia.WpfGraph.UI.Resources"
-        xmlns:vmMenu="clr-namespace:Palmmedia.WpfGraph.UI.ViewModels.Menu"
-        xmlns:views="clr-namespace:Palmmedia.WpfGraph.UI.Views"
+        xmlns:resx="clr-namespace:Palmmedia.WpfGraph.Ui.Properties"
+        xmlns:res="clr-namespace:Palmmedia.WpfGraph.Ui.Resources"
+        xmlns:vmMenu="clr-namespace:Palmmedia.WpfGraph.Ui.ViewModels.Menu"
+        xmlns:views="clr-namespace:Palmmedia.WpfGraph.Ui.Views"
         mc:Ignorable="d"
-        Title="WpfGraph" Height="600" Width="800" MinHeight="600" MinWidth="800" Icon="ProgrammIcon.ico">
+        Title="WpfGraph" Height="600" Width="800" MinHeight="600" MinWidth="800" Icon="pack://application:,,,/ProgrammIcon.ico">
 
     <Window.Resources>
         <res:GraphElementTemplateSelector x:Key="GraphElementTemplateSelector"/>

@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
+﻿using System.Collections.ObjectModel;
 using System.Reflection;
-using Palmmedia.WpfGraph.UI.Algorithms;
-using Palmmedia.WpfGraph.UI.Interaction;
+using Palmmedia.WpfGraph.Ui.Algorithms;
+using Palmmedia.WpfGraph.Ui.Interaction;
 
-namespace Palmmedia.WpfGraph.UI.ViewModels.Menu
+namespace Palmmedia.WpfGraph.Ui.ViewModels.Menu
 {
     /// <summary>
     /// Helper class to retrieve all implementations of <see cref="IGraphAlgorithm"/> by using reflection.
@@ -25,10 +22,10 @@ namespace Palmmedia.WpfGraph.UI.ViewModels.Menu
         {
             var menuItems = new ObservableCollection<MenuItemViewModel>();
 
-            var algorithms = GetTypesByInterface(new Assembly[] { Assembly.GetExecutingAssembly() }, typeof(IGraphAlgorithm));
-            var instances = algorithms.Select(a => (IGraphAlgorithm)Activator.CreateInstance(a)).OrderBy(a => a.Category).ThenBy(a => a.Name);
+            var algorithms = GetTypesByInterface([Assembly.GetExecutingAssembly()], typeof(IGraphAlgorithm));
+            var instances = algorithms.Select(a => (IGraphAlgorithm)Activator.CreateInstance(a)!).OrderBy(a => a.Category).ThenBy(a => a.Name);
 
-            var categories = instances.Select(a => a.Category).Where(c => c != null).Distinct();
+            IEnumerable<string> categories = instances.Select(a => a.Category).Where(c => c != null).Distinct()!;
 
             foreach (var category in categories)
             {
@@ -51,7 +48,7 @@ namespace Palmmedia.WpfGraph.UI.ViewModels.Menu
         /// <returns>All <see cref="Type">Types</see> implementing the given interface.</returns>
         private static IEnumerable<Type> GetTypesByInterface(IEnumerable<Assembly> assemblies, Type type)
         {
-            return assemblies.SelectMany(asm => asm.GetTypes().Where(t => t.GetInterface(type.FullName) != null));
-        }        
+            return assemblies.SelectMany(asm => asm.GetTypes().Where(t => t.GetInterface(type.FullName!) != null));
+        }
     }
 }

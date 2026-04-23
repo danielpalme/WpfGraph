@@ -1,9 +1,8 @@
-﻿using System;
-using System.Windows.Media;
+﻿using System.Windows.Media;
 using System.Windows.Media.Media3D;
 using Palmmedia.WpfGraph.Core;
 
-namespace Palmmedia.WpfGraph.UI.ViewModels
+namespace Palmmedia.WpfGraph.Ui.ViewModels
 {
     /// <summary>
     /// Extension methods to simplify changing properties of data attached to a node.
@@ -17,7 +16,7 @@ namespace Palmmedia.WpfGraph.UI.ViewModels
         /// <param name="color">The color.</param>
         public static void ChangeColor(this Node<NodeData, EdgeData> node, Color color)
         {
-            node.Data.Color = color;
+            node.Data!.Color = color;
         }
 
         /// <summary>
@@ -27,7 +26,7 @@ namespace Palmmedia.WpfGraph.UI.ViewModels
         /// <param name="targetPosition">The target position.</param>
         public static void Move(this Node<NodeData, EdgeData> node, Point3D targetPosition)
         {
-            node.Data.Move(targetPosition);
+            node.Data!.Move(targetPosition);
         }
 
         /// <summary>
@@ -38,7 +37,7 @@ namespace Palmmedia.WpfGraph.UI.ViewModels
         /// <param name="duration">The duration of the animation.</param>
         public static void Move(this Node<NodeData, EdgeData> node, Point3D targetPosition, double duration)
         {
-            node.Data.Move(targetPosition, duration);
+            node.Data!.Move(targetPosition, duration);
         }
 
         /// <summary>
@@ -50,7 +49,7 @@ namespace Palmmedia.WpfGraph.UI.ViewModels
         /// <param name="callback">The <see cref="Action">callback</see> executed at the end of the animation.</param>
         public static void Move(this Node<NodeData, EdgeData> node, Point3D targetPosition, double duration, Action callback)
         {
-            node.Data.Move(targetPosition, duration, callback);
+            node.Data!.Move(targetPosition, duration, callback);
         }
 
         /// <summary>
@@ -59,7 +58,7 @@ namespace Palmmedia.WpfGraph.UI.ViewModels
         /// <param name="node">The node.</param>
         public static void Blink(this Node<NodeData, EdgeData> node)
         {
-            node.Data.Blink();
+            node.Data!.Blink();
         }
 
         /// <summary>
@@ -69,7 +68,7 @@ namespace Palmmedia.WpfGraph.UI.ViewModels
         /// <param name="duration">The duration of the animation.</param>
         public static void Blink(this Node<NodeData, EdgeData> node, double duration)
         {
-            node.Data.Blink(duration);
+            node.Data!.Blink(duration);
         }
 
         /// <summary>
@@ -79,7 +78,7 @@ namespace Palmmedia.WpfGraph.UI.ViewModels
         /// <param name="callback">The <see cref="Action">callback</see> executed at the end of the animation.</param>
         public static void Blink(this Node<NodeData, EdgeData> node, Action callback)
         {
-            node.Data.Blink(callback);
+            node.Data!.Blink(callback);
         }
 
         /// <summary>
@@ -90,7 +89,7 @@ namespace Palmmedia.WpfGraph.UI.ViewModels
         /// <param name="callback">The <see cref="Action">callback</see> executed at the end of the animation.</param>
         public static void Blink(this Node<NodeData, EdgeData> node, double duration, Action callback)
         {
-            node.Data.Blink(duration, callback);
+            node.Data!.Blink(duration, callback);
         }
     }
 }

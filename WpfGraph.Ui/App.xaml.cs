@@ -1,16 +1,13 @@
-﻿using System;
-using System.Data;
+﻿using System.Data;
 using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Threading;
 using System.Windows;
 using Palmmedia.WpfGraph.Core;
-using Palmmedia.WpfGraph.UI.Interaction;
-using Palmmedia.WpfGraph.UI.IO;
-using Palmmedia.WpfGraph.UI.ViewModels;
+using Palmmedia.WpfGraph.Ui.Interaction;
+using Palmmedia.WpfGraph.Ui.IO;
+using Palmmedia.WpfGraph.Ui.ViewModels;
 
-namespace Palmmedia.WpfGraph.UI
+namespace Palmmedia.WpfGraph.Ui
 {
     /// <summary>
     /// Interaction logic for App.xaml
@@ -74,7 +71,7 @@ namespace Palmmedia.WpfGraph.UI
         /// Loads a graph from a file if path is supplied as argument.
         /// </summary>
         /// <returns><c>null</c> if no path is supplied, otherwise the graph.</returns>
-        private static IGraph<NodeData, EdgeData> LoadGraph()
+        private static IGraph<NodeData, EdgeData>? LoadGraph()
         {
             var path = Environment.GetCommandLineArgs().ElementAtOrDefault(1);
 
@@ -93,7 +90,7 @@ namespace Palmmedia.WpfGraph.UI
                 catch (GraphSerializationException ex)
                 {
                     Logger.Error("Loading graph form path '" + path + "' failed.", ex);
-                    MessageBox.Show(ex.Message, Palmmedia.WpfGraph.UI.Properties.Resources.Error);
+                    MessageBox.Show(ex.Message, Palmmedia.WpfGraph.Ui.Properties.Resources.Error);
                     return null;
                 }
             }
@@ -107,7 +104,7 @@ namespace Palmmedia.WpfGraph.UI
         private void App_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
             Logger.Error("Unhandled exception occured.", e.Exception);
-            MessageBox.Show(string.Format(CultureInfo.CurrentCulture, Palmmedia.WpfGraph.UI.Properties.Resources.UnhandledException, e.Exception.Message), Palmmedia.WpfGraph.UI.Properties.Resources.Error);
+            MessageBox.Show(string.Format(CultureInfo.CurrentCulture, Palmmedia.WpfGraph.Ui.Properties.Resources.UnhandledException, e.Exception.Message), Palmmedia.WpfGraph.Ui.Properties.Resources.Error);
             e.Handled = true;
         }
     }

@@ -1,12 +1,11 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Windows.Media.Media3D;
 using Palmmedia.WpfGraph.Core;
-using Palmmedia.WpfGraph.UI.Elements3D.Tesselate;
-using Palmmedia.WpfGraph.UI.Interaction;
-using Palmmedia.WpfGraph.UI.ViewModels;
+using Palmmedia.WpfGraph.Ui.Elements3D.Tesselate;
+using Palmmedia.WpfGraph.Ui.Interaction;
+using Palmmedia.WpfGraph.Ui.ViewModels;
 
-namespace Palmmedia.WpfGraph.UI.Elements3D
+namespace Palmmedia.WpfGraph.Ui.Elements3D
 {
     /// <summary>
     /// Represents an edge.
@@ -16,17 +15,32 @@ namespace Palmmedia.WpfGraph.UI.Elements3D
         /// <summary>
         /// <see cref="MeshGeometry3D"/> used as prototype.
         /// </summary>
-        private static readonly MeshGeometry3D cylinderPrototype = CylinderTesselate.Create(10, 0.4, 1);
+        private static readonly MeshGeometry3D CylinderPrototype = CylinderTesselate.Create(10, 0.4, 1);
 
         /// <summary>
         /// Oberservers for dependency properties.
         /// </summary>
-        private readonly PropertyDescriptor positionXDescriptor, positionYDescriptor, positionZDescriptor;
+        private readonly PropertyDescriptor positionXDescriptor;
+
+        /// <summary>
+        /// Oberservers for dependency properties.
+        /// </summary>
+        private readonly PropertyDescriptor positionYDescriptor;
+
+        /// <summary>
+        /// Oberservers for dependency properties.
+        /// </summary>
+        private readonly PropertyDescriptor positionZDescriptor;
 
         /// <summary>
         /// The <see cref="TranslateTransform3D"/> of the visual elements representing the nodes of the edge.
         /// </summary>
-        private readonly TranslateTransform3D translateTransform1, translateTransform2;
+        private readonly TranslateTransform3D translateTransform1;
+
+        /// <summary>
+        /// The <see cref="TranslateTransform3D"/> of the visual elements representing the nodes of the edge.
+        /// </summary>
+        private readonly TranslateTransform3D translateTransform2;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RegularEdgeUIElement"/> class.
@@ -62,7 +76,7 @@ namespace Palmmedia.WpfGraph.UI.Elements3D
         protected override void OnUpdateModel()
         {
             var model = new GeometryModel3D(
-                cylinderPrototype,
+                CylinderPrototype,
                 new DiffuseMaterial(this.CreateBrush()));
 
             this.Model = model;
@@ -91,7 +105,7 @@ namespace Palmmedia.WpfGraph.UI.Elements3D
 
             // Rotate
             transformGroup.Children.Add(new RotateTransform3D(new AxisAngleRotation3D(rotationAngle, rotation * 180 / Math.PI)));
-            
+
             // Move to first node
             transformGroup.Children.Add(new TranslateTransform3D((Vector3D)position1 + (GraphUIElement.NODERADIUS * normalizedDifference)));
 

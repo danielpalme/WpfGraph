@@ -1,10 +1,10 @@
 ﻿using System.Windows;
 using System.Windows.Media.Media3D;
 using Palmmedia.WpfGraph.Core;
-using Palmmedia.WpfGraph.UI.Interaction;
-using Palmmedia.WpfGraph.UI.ViewModels;
+using Palmmedia.WpfGraph.Ui.Interaction;
+using Palmmedia.WpfGraph.Ui.ViewModels;
 
-namespace Palmmedia.WpfGraph.UI.Elements3D
+namespace Palmmedia.WpfGraph.Ui.Elements3D
 {
     /// <summary>
     /// Factory class to instantiate <see cref="GraphUIElement">GraphUIElements</see>.
@@ -21,11 +21,8 @@ namespace Palmmedia.WpfGraph.UI.Elements3D
         /// <returns>The visual representation for an edge.</returns>
         public static UIElement3D CreateVisual(this Edge<NodeData, EdgeData> edge, IGraphProvider graphProvider, TranslateTransform3D translateTransform1, TranslateTransform3D translateTransform2)
         {
-            if (edge.Data == null)
-            {
-                edge.Data = new EdgeData();
-            }
-            
+            edge.Data ??= new EdgeData();
+
             if (edge.FirstNode == edge.SecondNode)
             {
                 return new SelfEdgeUIElement(graphProvider, edge, translateTransform1);
@@ -44,10 +41,7 @@ namespace Palmmedia.WpfGraph.UI.Elements3D
         /// <returns>The visual representation for a node.</returns>
         public static NodeUIElement CreateVisual(this Node<NodeData, EdgeData> node, IGraphProvider graphProvider)
         {
-            if (node.Data == null)
-            {
-                node.Data = new NodeData();
-            }
+            node.Data ??= new NodeData();
 
             return new NodeUIElement(graphProvider, node);
         }

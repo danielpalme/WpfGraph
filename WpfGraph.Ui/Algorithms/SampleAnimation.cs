@@ -1,8 +1,8 @@
 ﻿using System.Windows.Media.Media3D;
 using Palmmedia.WpfGraph.Core;
-using Palmmedia.WpfGraph.UI.ViewModels;
+using Palmmedia.WpfGraph.Ui.ViewModels;
 
-namespace Palmmedia.WpfGraph.UI.Algorithms.SpanningTree
+namespace Palmmedia.WpfGraph.Ui.Algorithms.SpanningTree
 {
     /// <summary>
     /// A sample animation.
@@ -17,12 +17,17 @@ namespace Palmmedia.WpfGraph.UI.Algorithms.SpanningTree
         /// <summary>
         /// Dictionary containing the distance to each node.
         /// </summary>
-        private Node<NodeData, EdgeData> node1, node3;
+        private Node<NodeData, EdgeData>? node1;
+
+        /// <summary>
+        /// Dictionary containing the distance to each node.
+        /// </summary>
+        private Node<NodeData, EdgeData>? node3;
 
         /// <summary>
         /// The graph.
         /// </summary>
-        private IGraph<NodeData, EdgeData> graph;
+        private IGraph<NodeData, EdgeData>? graph;
 
         /// <summary>
         /// Gets the name of the algorithm.
@@ -40,7 +45,7 @@ namespace Palmmedia.WpfGraph.UI.Algorithms.SpanningTree
         /// The category is used to generate a menu entry.
         /// Return <c>null</c> if algorithm should appear in root menu.
         /// </summary>
-        public string Category
+        public string? Category
         {
             get
             {
@@ -77,8 +82,8 @@ namespace Palmmedia.WpfGraph.UI.Algorithms.SpanningTree
         /// </summary>
         private void Callback1()
         {
-            this.node1.Blink();
-            this.node3.Blink(this.Callback2);
+            this.node1!.Blink();
+            this.node3!.Blink(this.Callback2);
         }
 
         /// <summary>
@@ -86,8 +91,8 @@ namespace Palmmedia.WpfGraph.UI.Algorithms.SpanningTree
         /// </summary>
         private void Callback2()
         {
-            this.graph.AddEdge(this.node1, this.node3);
-            this.node1.Move(new Point3D(10, 0, 20), 3000);
+            this.graph!.AddEdge(this.node1!, this.node3!);
+            this.node1!.Move(new Point3D(10, 0, 20), 3000);
         }
     }
 }

@@ -1,5 +1,5 @@
 <Solution>
-  <Project Path="WpfGraph.Core.Test/WpfGraph.Core.Test.csproj" />
-  <Project Path="WpfGraph.Core/WpfGraph.Core.csproj" />
-  <Project Path="WpfGraph.Ui/WpfGraph.Ui.csproj" />
+  <Project Path="WpfGraph.Core.Test/WpfGraph.Core.Test.csproj" Id="a4aca527-4eb8-44dc-9e33-f485bf65eaaf" />
+  <Project Path="WpfGraph.Core/WpfGraph.Core.csproj" Id="ed532b28-88d0-48ee-8111-7e01a9cea45d" />
+  <Project Path="WpfGraph.Ui/WpfGraph.Ui.csproj" Id="ec1f16f1-0a7e-4b64-982a-4f34eb215ba4" DisplayName="WpfGraph.UI" />
 </Solution>

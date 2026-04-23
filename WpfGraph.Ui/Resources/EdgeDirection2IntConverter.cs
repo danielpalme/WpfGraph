@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Windows.Data;
 using Palmmedia.WpfGraph.Core;
 
-namespace Palmmedia.WpfGraph.UI.Resources
+namespace Palmmedia.WpfGraph.Ui.Resources
 {
     /// <summary>
     /// Converts an <see cref="EdgeDirection"/> to an <see cref="int"/> and vise versa.

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Windows;
@@ -36,11 +33,11 @@ namespace Palmmedia.WpfGraph.Common
         {
             if (propertySource == null)
             {
-                throw new ArgumentNullException("propertySource");
+                throw new ArgumentNullException(nameof(propertySource));
             }
 
             this.propertySourceRef = new WeakReference(propertySource);
-            this.propertyNameToHandlerMap = new Dictionary<string, Action<TPropertySource>>();
+            this.propertyNameToHandlerMap = [];
         }
 
         /// <summary>
@@ -53,24 +50,18 @@ namespace Palmmedia.WpfGraph.Common
             Expression<Func<TPropertySource, object>> expression,
             Action<TPropertySource> handler)
         {
-            if (expression == null)
-            {
-                throw new ArgumentNullException("expression");
-            }
+            ArgumentNullException.ThrowIfNull(expression);
 
-            string propertyName = GetPropertyName(expression);
+            string? propertyName = GetPropertyName(expression);
 
             if (string.IsNullOrEmpty(propertyName))
             {
                 throw new ArgumentException("'expression' did not provide a property name.");
             }
 
-            if (handler == null)
-            {
-                throw new ArgumentNullException("handler");
-            }
+            ArgumentNullException.ThrowIfNull(handler);
 
-            TPropertySource propertySource = this.GetPropertySource();
+            TPropertySource? propertySource = this.GetPropertySource();
             if (propertySource != null)
             {
                 this.propertyNameToHandlerMap[propertyName] = handler;
@@ -87,27 +78,24 @@ namespace Palmmedia.WpfGraph.Common
         /// <returns>The object on which this method was invoked, to allow for multiple invocations chained together.</returns>
         public PropertyObserver<TPropertySource> UnregisterHandler(Expression<Func<TPropertySource, object>> expression)
         {
-            if (expression == null)
-            {
-                throw new ArgumentNullException("expression");
-            }
+            ArgumentNullException.ThrowIfNull(expression);
 
-            string propertyName = GetPropertyName(expression);
+            string? propertyName = GetPropertyName(expression);
 
             if (string.IsNullOrEmpty(propertyName))
             {
                 throw new ArgumentException("'expression' did not provide a property name.");
             }
 
-             TPropertySource propertySource = this.GetPropertySource();
-             if (propertySource != null)
-             {
-                 if (this.propertyNameToHandlerMap.ContainsKey(propertyName))
-                 {
-                     this.propertyNameToHandlerMap.Remove(propertyName);
-                     PropertyChangedEventManager.RemoveListener(propertySource, this, propertyName);
-                 }
-             }
+            TPropertySource? propertySource = this.GetPropertySource();
+            if (propertySource != null)
+            {
+                if (this.propertyNameToHandlerMap.ContainsKey(propertyName))
+                {
+                    this.propertyNameToHandlerMap.Remove(propertyName);
+                    PropertyChangedEventManager.RemoveListener(propertySource, this, propertyName);
+                }
+            }
 
             return this;
         }
@@ -125,7 +113,7 @@ namespace Palmmedia.WpfGraph.Common
         {
             if (managerType == typeof(PropertyChangedEventManager))
             {
-                string propertyName = ((PropertyChangedEventArgs)e).PropertyName;
+                string? propertyName = ((PropertyChangedEventArgs)e).PropertyName;
                 TPropertySource propertySource = (TPropertySource)sender;
 
                 if (string.IsNullOrEmpty(propertyName))
@@ -141,7 +129,7 @@ namespace Palmmedia.WpfGraph.Common
                 }
                 else
                 {
-                    Action<TPropertySource> handler;
+                    Action<TPropertySource>? handler;
                     if (this.propertyNameToHandlerMap.TryGetValue(propertyName, out handler))
                     {
                         handler(propertySource);
@@ -158,14 +146,14 @@ namespace Palmmedia.WpfGraph.Common
         /// </summary>
         /// <param name="expression">A lambda expression like 'n => n.PropertyName'.</param>
         /// <returns>The name of the property if property exists, otherwise <c>null</c>.</returns>
-        private static string GetPropertyName(Expression<Func<TPropertySource, object>> expression)
+        private static string? GetPropertyName(Expression<Func<TPropertySource, object>> expression)
         {
             var lambda = expression as LambdaExpression;
-            MemberExpression memberExpression;
+            MemberExpression? memberExpression;
             if (lambda.Body is UnaryExpression)
             {
                 var unaryExpression = lambda.Body as UnaryExpression;
-                memberExpression = unaryExpression.Operand as MemberExpression;
+                memberExpression = unaryExpression?.Operand as MemberExpression;
             }
             else
             {
@@ -178,7 +166,7 @@ namespace Palmmedia.WpfGraph.Common
             {
                 var propertyInfo = memberExpression.Member as PropertyInfo;
 
-                return propertyInfo.Name;
+                return propertyInfo?.Name;
             }
 
             return null;
@@ -188,13 +176,13 @@ namespace Palmmedia.WpfGraph.Common
         /// Gets the monitored object.
         /// </summary>
         /// <returns>The monitored object.</returns>
-        private TPropertySource GetPropertySource()
+        private TPropertySource? GetPropertySource()
         {
             try
             {
-                return (TPropertySource)this.propertySourceRef.Target;
+                return (TPropertySource?)this.propertySourceRef.Target;
             }
-            catch 
+            catch
             {
                 return default(TPropertySource);
             }

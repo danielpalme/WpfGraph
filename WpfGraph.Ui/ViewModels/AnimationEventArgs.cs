@@ -1,7 +1,4 @@
-﻿using System;
-using System.Windows.Media.Media3D;
-
-namespace Palmmedia.WpfGraph.UI.ViewModels
+﻿namespace Palmmedia.WpfGraph.Ui.ViewModels
 {
     /// <summary>
     /// Provides data for the <see cref="E:GraphDataBase.Blinking"/> event.
@@ -13,7 +10,7 @@ namespace Palmmedia.WpfGraph.UI.ViewModels
         /// </summary>
         /// <param name="duration">The duration of the animation.</param>
         /// <param name="callback">The <see cref="Action">callback</see> executed at the end of an animation.</param>
-        public AnimationEventArgs(double duration, Action callback)
+        public AnimationEventArgs(double duration, Action? callback)
         {
             this.Duration = duration;
             this.Callback = callback;
@@ -27,6 +24,6 @@ namespace Palmmedia.WpfGraph.UI.ViewModels
         /// <summary>
         /// Gets the  <see cref="Action">callback</see> which gets executed at the end of an animation.
         /// </summary>
-        public Action Callback { get; private set; }
+        public Action? Callback { get; private set; }
     }
 }

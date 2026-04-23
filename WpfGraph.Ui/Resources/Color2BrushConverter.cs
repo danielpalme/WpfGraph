@@ -1,9 +1,8 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
 
-namespace Palmmedia.WpfGraph.UI.Resources
+namespace Palmmedia.WpfGraph.Ui.Resources
 {
     /// <summary>
     /// Converts a <see cref="Color"/> to a <see cref="SolidColorBrush"/> and vise versa.
@@ -20,9 +19,9 @@ namespace Palmmedia.WpfGraph.UI.Resources
         /// <returns>
         /// A converted value. If the method returns null, the valid null value is used.
         /// </returns>
-        object IValueConverter.Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        object? IValueConverter.Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            string stringValue = value as string;
+            string? stringValue = value as string;
 
             if (stringValue != null && stringValue.Length == 0)
             {

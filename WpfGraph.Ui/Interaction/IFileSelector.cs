@@ -1,4 +1,4 @@
-﻿namespace Palmmedia.WpfGraph.UI.Interaction
+﻿namespace Palmmedia.WpfGraph.Ui.Interaction
 {
     /// <summary>
     /// Interface to enable mocking of file selection dialogs in unit tests.
